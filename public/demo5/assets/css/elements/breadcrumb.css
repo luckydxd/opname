@@ -8,6 +8,10 @@
 			@Import	Mixins
 	===============================
 */
+.breadcrumb-one {
+  margin-top: 20px; /* Sesuaikan nilai ini sesuai keinginanmu */
+}
+
 .breadcrumb {
   background-color: transparent;
   margin-bottom: 0; }

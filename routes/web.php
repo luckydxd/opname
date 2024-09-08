@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\ScanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
+
+// Route::get('/dashboard-user', function () {
+//     return view('user.dashboard');
+// });
+
+Route::get('user/datatables', [DashboardController::class, 'datatable'])->name('user.datatable');
+Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
+
+// Route::get('/admin/dashboard', [ScanController::class, 'index'])->name('dashboard_admin');
+
