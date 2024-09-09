@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DataGudangController;
@@ -26,6 +27,9 @@ Route::get('/', function () {
 
 // Fadhil
 Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
+Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+
+
 
 //end Fadhil
 

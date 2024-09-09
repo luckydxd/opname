@@ -21,7 +21,7 @@ class stokOpnameDashboardDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $url = route('data_gudang', $row->id); // Ganti 'nama.route' dengan nama route yang sesuai
+                $url = route('StokOpnameDetail', $row->id); // Ganti 'nama.route' dengan nama route yang sesuai
                 return "<a class='btn btn-sm btn-primary rounded-circle' href='{$url}'><i class='bi bi-eye'></i></a>";
             })
             ->setRowId('id')
