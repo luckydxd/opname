@@ -21,41 +21,35 @@
 
          <div class="shadow-bottom"></div>
          <ul class="list-unstyled menu-categories" id="accordionExample">
-             <li class="menu active">
-                 <a href="javascript:void(0);" aria-expanded="true" class="dropdown-toggle">
-                     <div class="">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                             stroke-linejoin="round" class="feather feather-home">
-                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                             <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                         </svg>
+             <li class="menu {{ $title == 'Dashboard' ? 'active' : '' }}">
+                 <a href="{{ route('dashboard_admin') }}" aria-expanded="true" class="dropdown-toggle nav-link"
+                     style="text-decoration: none">
+                     <div class="fs-6 ">
+                         <i class="bi bi-speedometer mx-2"></i>
                          <span> Dashboard</span>
                      </div>
                  </a>
              </li>
-             <li class="menu ">
-                 <a href="javascript:void(0);" aria-expanded="true" class="dropdown-toggle">
-                     <div class="">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                             stroke-linejoin="round" class="feather feather-home">
-                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                             <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                         </svg>
+             <li class="menu {{ $title == 'Data Gudang' ? 'active' : '' }}">
+                 <a href="{{ route('data_gudang') }}" aria-expanded="true" class="dropdown-toggle nav-link">
+                     <div class="fs-6 ">
+                         <i class="bi bi-card-heading mx-2"></i>
                          <span> Data Gudang</span>
                      </div>
                  </a>
              </li>
+             <li class="menu {{ $title == 'Stok Opname' ? 'active' : '' }}">
+                 <a href="{{ route('stok_opname') }}" aria-expanded="true" class="dropdown-toggle nav-link">
+                     <div class="fs-6 ">
+                         <i class="bi bi-card-heading mx-2"></i>
+                         <span> Stok Opname</span>
+                     </div>
+                 </a>
+             </li>
              <li class="menu ">
-                 <a href="javascript:void(0);" aria-expanded="true" class="dropdown-toggle">
-                     <div class="">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                             stroke-linejoin="round" class="feather feather-home">
-                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                             <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                         </svg>
+                 <a href="{{ route('data_produk') }}" aria-expanded="true" class="dropdown-toggle nav-link">
+                     <div class="fs-6">
+                         <i class="bi bi-box-fill mx-2"></i>
                          <span> Data Produk</span>
                      </div>
                  </a>
