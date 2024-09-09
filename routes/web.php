@@ -45,6 +45,7 @@ Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('dat
 //Azhar
 
 Route::get('/admin/stok-opname/', [StokOpnameController::class, 'index'])->name('stok_opname');
+Route::get('/admin/stok-opname/import/{id}', [StokOpnameController::class, 'importData'])->name('stok_opname_import');
 
 //end Azhar
 
