@@ -25,11 +25,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+// Fadhil
 Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
+
+//end Fadhil
+
+// andini
 Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
+
+
+//end andini
+
+//Legi
 Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
+
+//end Legi
+
+
+
+//Azhar
+
 Route::get('/admin/stok-opname/', [StokOpnameController::class, 'index'])->name('stok_opname');
+
+//end Azhar
+
+
+
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
