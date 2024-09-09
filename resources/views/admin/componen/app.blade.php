@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ $title }}</title>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="{{ asset('demo5/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @stack('css')
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -71,7 +74,7 @@
 
     </div>
 
-
+    @stack('scripts')
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{ asset('demo5/assets/js/libs/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('demo5/bootstrap/js/popper.min.js') }}"></script>
