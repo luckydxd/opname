@@ -22,7 +22,7 @@ class DataGudangDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
                 // Tombol untuk mengedit data Gudang
-                $editUrl = route('gudang.edit', $row->id); // Sesuaikan dengan route edit gudang
+                $editUrl = route('data_gudang_edit', $row->id); // Sesuaikan dengan route edit gudang
                 return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>";
             })
             ->setRowId('id')
@@ -56,7 +56,7 @@ class DataGudangDataTable extends DataTable
                 Button::make('reload'),
                 Button::make('add')
                     ->text('<i class="bi bi-plus"></i> Add Gudang') // Teks dan ikon tombol
-                    ->action('function(){ window.location.href = "' . route('data_produk') . '"; }') // Aksi tombol untuk redirect
+                    ->action('function(){ window.location.href = "' . route('data_gudang_add') . '"; }') // Aksi tombol untuk redirect
                     ->addClass('btn btn-success'), // Kelas CSS untuk styling
             ]);
     }
