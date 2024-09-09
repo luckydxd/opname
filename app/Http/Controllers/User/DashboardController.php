@@ -13,6 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        
         return view('user.dashboard');
     }
 
@@ -27,7 +28,14 @@ class DashboardController extends Controller
     {
         $gudangs = Gudang::all();
 
-        return view('user.addopname', compact('gudangs'));
+        $currentMonth = date('m');
+        $lastStokOpname = StokOpname::whereMonth('tanggal_opname', $currentMonth)->orderBy('id', 'desc')->first();    
+        $nextOrder = $lastStokOpname ? sprintf('%02d', intval(substr($lastStokOpname->nomor_dokumen, -2)) + 1) : '01';
+    
+        // Auto Generate nomor dokumen dengan format SOP/{Bulan}/{Urutan}
+        $nomorDokumen = 'SOP/' . $currentMonth . '/' . $nextOrder;
+    
+        return view('user.addopname', compact('gudangs','nomorDokumen'));
     }
 
     public function store(Request $request)
@@ -45,6 +53,28 @@ class DashboardController extends Controller
         ]);
     
         return redirect()->route('dashboard_user')->with('success', 'Data berhasil ditambahkan');
+}
+
+public function edit($id)
+{
+    $stokOpname = StokOpname::findOrFail($id);
+    return view('user.scan', compact('stokOpname'));
+}
+
+public function destroy($id)
+{
+    $stokOpname = StokOpname::find($id);
+
+    // Pengecekan
+    if (!$stokOpname) {
+        return redirect()->back()->with('error', 'Stok Opname tidak ditemukan.');
+    }
+
+    // Hapus detail stok opname terlebih dahulu (jika ada)
+    $stokOpname->detailStokOpnames()->delete();
+    $stokOpname->delete();
+    
+    return response()->json(['success' => 'Item deleted successfully.']);
 }
 
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\StokOpnameController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ScanController;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -65,13 +66,16 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
-// Route::get('/dashboard-user', function () {
-//     return view('user.dashboard');
-// });
+
+
+//Lucky Route
 
 Route::get('user/datatables', [DashboardController::class, 'datatable'])->name('user.datatable');
 Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
 Route::get('/user/opname_add', [DashboardController::class, 'create'])->name('user.addopname');
 Route::post('/user/opname_add', [DashboardController::class, 'store'])->name('user.storeopname');
+Route::delete('/user/dashboard/{id}', [DashboardController::class, 'destroy'])->name('user.deleteopname');
+// Route::get('user/scan/datatables', [ScanController::class, 'datatable'])->name('user.scan.datatable');
+Route::get('/user/scan/{id}', [DashboardController::class, 'edit'])->name('user.scan');
 
-// Route::get('/admin/dashboard', [ScanController::class, 'index'])->name('dashboard_admin');
+//end Lucky

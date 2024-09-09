@@ -9,12 +9,12 @@
     </ol>
 </nav>
 
-<div class="col-xl-8 col-lg-6 col-md-6 col-sm-12 col-12 mt-3" style="margin-bottom:24px;">
+<div class="col-xl-8 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">                                
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Tambah Data</h4>
+                                        <h4>Tambah Data Stok Opname</h4>
                                     </div>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label for="nomorDokumen">Nomor Dokumen</label>
-                                    <input type="text" class="form-control" id="nomorDokumen" name="nomor_dokumen" required>
+                                    <input type="text" class="form-control" id="nomorDokumen" name="nomor_dokumen" value="{{ $nomorDokumen }}" readonly required>
                                 </div>
 
                                 <div class="form-group mb-4">
@@ -32,7 +32,7 @@
 
                                 </div>
 
-                                <div class="form-group mb-4">
+                                <div class="form-group mb-2">
                                     <label for="gudangSelect">Lokasi Gudang</label>
                                     <select class="form-control  basic" id="gudangSelect" name="id_gudang" required>
                                         @foreach ($gudangs as $gudang)
