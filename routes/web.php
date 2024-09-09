@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DataGudangController;
@@ -26,11 +27,18 @@ Route::get('/', function () {
 
 // Fadhil
 Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
+Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+
+
 
 //end Fadhil
 
 // andini
 Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
+Route::get('/admin/datagudang-add',[DataGudangController::class, 'add'])->name('data_gudang_add');
+Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
+Route::get('/admin/datagudang-edit/{id}',[DataGudangController::class, 'edit'])->name('data_gudang_edit');
+Route::post('/admin/datagudang-update/',[DataGudangController::class, 'update'])->name('data_gudang_update');
 
 
 //end andini
