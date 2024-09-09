@@ -35,13 +35,19 @@ Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'
 
 // andini
 Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
+Route::get('/admin/datagudang-add',[DataGudangController::class, 'add'])->name('data_gudang_add');
+Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
+Route::get('/admin/datagudang-edit/{id}',[DataGudangController::class, 'edit'])->name('data_gudang_edit');
+Route::post('/admin/datagudang-update/',[DataGudangController::class, 'update'])->name('data_gudang_update');
 
 
 //end andini
 
 //Legi
 Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
-
+Route::get('/produk/upload', [ProdukController::class, 'uploadForm'])->name('uploadForm_produk');
+Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
+// 
 //end Legi
 
 
