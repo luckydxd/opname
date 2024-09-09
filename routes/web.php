@@ -27,6 +27,9 @@ Route::get('/', function () {
 
 // Fadhil
 Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
+Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+
+
 
 //end Fadhil
 
