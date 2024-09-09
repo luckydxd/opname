@@ -12,7 +12,7 @@
 
 <div class="col-lg-12 col-md-12 mt-3 layout-spacing">
 <div class="d-flex justify-content-end mb-3">
-                                    <a href="" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <a href="{{ route ('user.addopname')}}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                         Tambah Data
                                     </a>
                                     </div>
@@ -20,8 +20,7 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-    
-                                        <h5 class="mt-2">Data Stok Opname</h5>
+                                        <h4>Data Stok Opname</h4>
                                     </div>          
                                 </div>
                             </div>
@@ -67,6 +66,12 @@
                         },
                     },
                     {
+                        targets: 3, 
+                        render: function(data, type, full, meta) {
+                            return full.gudang ? full.gudang.nama : '-'; 
+                        },
+                    },
+                    {
                         targets: 4,
                         render: function(data, type, full, meta) {
                             let btn = `
@@ -92,7 +97,7 @@
                         data: 'tanggal_opname'
                     },
                     {
-                        data: 'lokasi'
+                        data: 'nama'
                     },
                     {
                         data: 'id'
