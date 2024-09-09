@@ -3,14 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User</title>
+    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/> -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="{{ asset('demo5/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/assets/css/elements/breadcrumb.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/assets/css/elements/miscellaneous.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- YAJRA STYLES -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
@@ -18,6 +28,9 @@
         /*
              The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
          */
+        .column-tanggal {
+        width: 240px;
+    }
         .navbar .navbar-item.navbar-dropdown {
             margin-left: auto;
         }
@@ -50,24 +63,21 @@
             </div>
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
-                    <p class="">Copyright © 2020 <a target="_blank"
-                            href="https://designreset.com">DesignReset</a>, All rights reserved.</p>
-                </div>
-                <div class="footer-section f-section-2">
-                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-                            <path
-                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                            </path>
-                        </svg></p>
+                    <p class="">Copyright © 2024 <a target="_blank"
+                            href="https://designreset.com">Devgenfour</a>, All rights reserved.</p>
                 </div>
             </div>
         </div>
         <!--  END CONTENT AREA  -->
 
+    </div>
+    <!-- END MAIN CONTAINER -->
+
         <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
         <script src="{{ asset('demo5/assets/js/libs/jquery-3.1.1.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
         <script src="{{ asset('demo5/bootstrap/js/popper.min.js') }}"></script>
         <script src="{{ asset('demo5/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('demo5/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
@@ -79,13 +89,11 @@
             });
         </script>
         <script src="{{ asset('demo5/assets/js/custom.js') }}"></script>
+        
         <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('script')
 
 
 </body>
-
 </html>
