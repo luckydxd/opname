@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStokBarangTable extends Migration
+class CreateStokBarangsTable extends Migration
 {
     public function up()
     {
-        Schema::create('stok_barang', function (Blueprint $table) {
+        Schema::create('stok_barangs', function (Blueprint $table) {
             $table->id(); // ID sebagai primary key
-            $table->string('kode_produk'); // Menggunakan kode_produk untuk relasi
-            $table->foreign('kode_produk')->references('kode')->on('produk'); // Foreign key ke kode di tabel produk
+            $table->string('kode_produk'); // Pastikan tipe data string, sesuai dengan `produk.kode`
+            $table->foreign('kode_produk')->references('kode')->on('produk')->onDelete('cascade'); // Foreign key ke kode di tabel produk
             $table->foreignId('id_stok_opname')->constrained('stok_opname'); // Foreign key ke tabel stok_opname
             $table->integer('kuantitas');
             $table->timestamps();
@@ -20,6 +20,6 @@ class CreateStokBarangTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('stok_barang');
+        Schema::dropIfExists('stok_barangs');
     }
 }
