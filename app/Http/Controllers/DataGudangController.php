@@ -30,12 +30,24 @@ class DataGudangController extends Controller
         $gudang = Gudang::find($id);
         return view('admin.DataGudang-edit', compact('title', 'gudang'));
     }
-    public function update(Request $request){
-        $gudang = Gudang::find($request->id);
-        $gudang->update([
-            'name'=>$request->name,
-        ]);
-        return redirect()->route('data_gudang');
-    }
+    public function update(Request $request)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+    ]);
+
+    // Ambil model berdasarkan ID yang diterima
+    $gudang = Gudang::find($request->id);
+
+    if ($gudang) {
+        // Update data gudang
+        $gudang->nama = $request->nama;
+        $gudang->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
+    return redirect()->back()->with('error', 'Data tidak ditemukan');
+}
+}
