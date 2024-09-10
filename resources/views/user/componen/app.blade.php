@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>User</title>
     <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/> -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -14,6 +15,10 @@
     <link href="{{ asset('demo5/assets/css/elements/miscellaneous.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/assets/css/structure.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/plugins/flatpickr/flatpickr.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('demo5/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- YAJRA STYLES -->
@@ -28,6 +33,13 @@
         /*
              The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
          */
+        .widget .widget-header h4 {
+            color: #3b3f5c;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 0;
+            padding: 16px 15px;
+        }
         .column-tanggal {
         width: 240px;
     }
@@ -83,11 +95,16 @@
         <script src="{{ asset('demo5/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
         <script src="{{ asset('demo5/assets/js/app.js') }}"></script>
 
+
         <script>
             $(document).ready(function() {
                 App.init();
             });
         </script>
+
+        
+        <script src="{{ asset('demo5/plugins/flatpickr/flatpickr.js') }}"></script>
+        <script src="{{ asset('demo5/plugins/select2/select2.min.js') }}"></script>
         <script src="{{ asset('demo5/assets/js/custom.js') }}"></script>
         
         <!-- END GLOBAL MANDATORY SCRIPTS -->
