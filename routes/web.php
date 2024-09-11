@@ -57,6 +57,7 @@ Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('uploa
 //Azhar
 
 Route::get('/admin/stok-opname/', [StokOpnameController::class, 'index'])->name('stok_opname');
+Route::get('/admin/stok-opname/import/{id}', [StokOpnameController::class, 'importData'])->name('stok_opname_import');
 
 //end Azhar
 
