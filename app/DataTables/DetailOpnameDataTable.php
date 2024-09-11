@@ -24,7 +24,7 @@ class DetailOpnameDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $settingsUrl = route('product.settings', $row->id);
+                $settingsUrl = route('StokOpnameDetail', $row->id);
                 
                 return "
                     <a class='btn btn-sm btn-warning rounded-circle' href='{$settingsUrl}' title='Pengaturan'>
