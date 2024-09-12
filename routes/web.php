@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DataGudangController;
 use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\StokOpnameController;
+use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ScanController;
 
@@ -37,10 +37,10 @@ Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'
 
 // andini
 Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
-Route::get('/admin/datagudang-add',[DataGudangController::class, 'add'])->name('data_gudang_add');
+Route::get('/admin/datagudang-add', [DataGudangController::class, 'add'])->name('data_gudang_add');
 Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
-Route::get('/admin/datagudang-edit/{id}',[DataGudangController::class, 'edit'])->name('data_gudang_edit');
-Route::post('/admin/datagudang-update/',[DataGudangController::class, 'update'])->name('data_gudang_update');
+Route::get('/admin/datagudang-edit/{id}', [DataGudangController::class, 'edit'])->name('data_gudang_edit');
+Route::post('/admin/datagudang-update/', [DataGudangController::class, 'update'])->name('data_gudang_update');
 
 
 //end andini
@@ -58,8 +58,10 @@ Route::post('/unggah/produk', [ProdukController::class, 'importData'])->name('un
 
 //Azhar
 
-Route::get('/admin/stok-opname/', [StokOpnameController::class, 'index'])->name('stok_opname');
-Route::get('/admin/stok-opname/import/{id}', [StokOpnameController::class, 'importData'])->name('stok_opname_import');
+Route::get('/admin/stok-barang/', [StokBarangController::class, 'index'])->name('stok_barang');
+Route::get('/admin/stok-barang/import/{id}', [StokBarangController::class, 'importData'])->name('stok_barang_import');
+Route::post('/admin/stok_barang/import-frontend', [StokBarangController::class, 'importFromFrontend'])->name('stok_barang_import_frontend');
+
 
 //end Azhar
 

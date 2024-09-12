@@ -14,6 +14,7 @@ class StokBarang extends Model
     protected $fillable = [
         'kode_produk',
         'id_stok_opname',
+        'nama',
         'kuantitas',
     ];
 
