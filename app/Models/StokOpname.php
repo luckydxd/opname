@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StokOpname extends Model
 {
     use HasFactory;
+    protected $table = 'stok_opnames';
 
     protected $fillable = ['nomor_dokumen', 'id_gudang', 'tanggal_opname'];
 
