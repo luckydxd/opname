@@ -14,17 +14,15 @@
                 <p><em>Sample excel document</em> <a href="/sampleaddproduk.xlsx" class="btn btn-success btn-sm">Download</a></p>
                 <form action="{{ route('unggah_produk') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-               <div class="mb-4">
+                    <div class="custom-file mb-4">
                     <label for="formFileMultiple" class="form-label">Upload File Disini</label>
-                    {{-- <input class="form-control" type="file" id="formFileMultiple" name="file_excel" multiple> --}}
                     <input class="form-control" type="file"  id="formFileMultiple" name="file_excel" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         </div>
 </div>
 @endsection
-{{-- @push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush --}}
+@push('scripts')
+@endpush

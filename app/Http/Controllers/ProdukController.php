@@ -18,57 +18,18 @@ class ProdukController extends Controller
         return $dataTable->render('admin.DataProduk', compact('title'));
     }
 
-    public function uploadForm()
+    public function importData()
     {
         $title = 'Data Produk';
-        $products = Produk::all(); // Ambil semua produk dari database
-        return view('admin.UploadDataProduk', compact('title', 'products'));
+        
+        return view('admin.UploadDataProduk', compact('title'));
     }
 
-    // public function unggahProduk(Request $request)
+    // public function importData()
     // {
-    //     // Validasi file Excel
-    //     $request->validate([
-    //         'file_excel' => 'required|file|mimes:xlsx,xls',
-    //     ]);
-
-    //     // Cek jika file ada
-    //     if ($request->hasFile('file_excel')) {
-    //         $file = $request->file('file_excel');
-
-    //         // Load file Excel
-    //         $spreadsheet = IOFactory::load($file->getRealPath());
-
-    //         // Ambil worksheet aktif pertama
-    //         $sheet = $spreadsheet->getActiveSheet();
-
-    //         // Mulai dari baris ke-2 (asumsi baris 1 adalah header)
-    //         $rowIterator = $sheet->getRowIterator(2);
-
-    //         foreach ($rowIterator as $row) {
-    //             $cellIterator = $row->getCellIterator();
-    //             $cellIterator->setIterateOnlyExistingCells(false); // Loop through all cells, even empty ones
-
-    //             $data = [];
-
-    //             // Iterasi setiap sel dalam baris
-    //             foreach ($cellIterator as $cell) {
-    //                 $data[] = $cell->getValue();
-    //             }
-
-    //             // Cek jika baris memiliki setidaknya 3 kolom data yang sesuai
-    //             if (count($data) >= 2) {
-    //                 // Validasi sederhana untuk kolom price (pastikan angka)
-    //                 if (is_numeric($data[1])) {
-    //                     // Asumsi kolom Excel: name, price, description
-    //                     Produk::create([
-    //                         'nama' => $data[0],          // Kolom pertama (name)
-    //                         'kode' => $data[1],         // Kolom kedua (price)
-                        
-    //                     ]);
-    //                 }
-    //             }
-    //         }
+    //     $title = 'Data Produk';
+    //     return view('admin.StokOpname-import', compact('title'));
+    // }
 
     //         return back()->with('success', 'File Excel berhasil diunggah dan datanya dimasukkan ke dalam database!');
     //     }
