@@ -48,7 +48,9 @@ Route::post('/admin/datagudang-update/',[DataGudangController::class, 'update'])
 //Legi
 Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
 Route::get('/produk/upload', [ProdukController::class, 'uploadForm'])->name('uploadForm_produk');
-Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
+// Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
+Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
+
 // 
 //end Legi
 
