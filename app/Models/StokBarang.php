@@ -9,11 +9,12 @@ class StokBarang extends Model
 {
     use HasFactory;
 
-    protected $table = 'stok_barang';
+    protected $table = 'stok_barangs';
 
     protected $fillable = [
         'kode_produk',
         'id_stok_opname',
+        'nama',
         'kuantitas',
     ];
 

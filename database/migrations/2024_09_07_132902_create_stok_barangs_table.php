@@ -13,6 +13,7 @@ class CreateStokBarangsTable extends Migration
             $table->string('kode_produk'); // Pastikan tipe data string, sesuai dengan `produk.kode`
             $table->foreign('kode_produk')->references('kode')->on('produks')->onDelete('cascade'); // Foreign key ke kode di tabel produk
             $table->foreignId('id_stok_opname')->constrained('stok_opnames'); // Foreign key ke tabel stok_opname
+            $table->string('nama');
             $table->integer('kuantitas');
             $table->timestamps();
         });
