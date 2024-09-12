@@ -45,7 +45,7 @@ class DataGudangController extends Controller
         $gudang->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->back()->with('success', 'Data berhasil diupdate');
+        return redirect()->route('data_gudang')->with('success', 'Data berhasil diupdate');
     }
 
     return redirect()->back()->with('error', 'Data tidak ditemukan');
