@@ -7,6 +7,7 @@ use App\DataTables\stokOpnameDataTable;
 use App\Models\StokBarang;
 use App\Models\StokOpname;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class StokBarangController extends Controller
 {
@@ -71,6 +72,22 @@ class StokBarangController extends Controller
         } catch (\Exception $e) {
 
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function getStokBarangs(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = StokBarang::with(['produk', 'stokOpname'])->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('produk', function ($row) {
+                    return $row->produk->nama ?? 'N/A'; // Mengakses nama produk dari relasi
+                })
+                ->addColumn('stok_opname', function ($row) {
+                    return $row->stokOpname->nama ?? 'N/A'; // Mengakses nama stok opname dari relasi
+                })
+                ->make(true);
         }
     }
 }

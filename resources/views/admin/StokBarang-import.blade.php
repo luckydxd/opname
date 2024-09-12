@@ -1,7 +1,7 @@
 @extends('admin.componen.app')
 @section('content')
-    <div class="container my-3">
-        <div class="card">
+    <div class="container my-3 ">
+        <div class="card my-2">
             <div class="card-header">
                 Master Data Stok Opname
             </div>
@@ -26,9 +26,54 @@
                 </div>
             </div>
         </div>
+        <div class="card my-2">
+            <div class="card-body">
+                <table class="table table-bordered" id="stok-barang-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Produk</th>
+                            <th>Nama Stok Opname</th>
+                            <th>Kuantitas</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
+@push('css')
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+@endpush
 
 @push('scripts')
     @vite('resources/js/importExcel.js')
+    <script type="text/javascript">
+        $(function() {
+            $('#stok-barang-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('stok-barangs.get') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'produk',
+                        name: 'produk'
+                    },
+                    {
+                        data: 'stok_opname',
+                        name: 'stok_opname'
+                    },
+                    {
+                        data: 'kuantitas',
+                        name: 'kuantitas'
+                    },
+                ]
+            });
+        });
+    </script>
 @endpush
