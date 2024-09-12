@@ -44,7 +44,7 @@ class ProdukController extends Controller
                 // Validasi data per baris
                 $rowValidator = Validator::make($row, [
                     'Kode' => 'required|string', // Kode produk harus ada
-                    'Nama' => 'required|string', // Nama produk harus ada
+                    'Nama_Barang' => 'required|string', // Nama produk harus ada
                 ]);
 
                 if ($rowValidator->fails()) {
@@ -57,7 +57,7 @@ class ProdukController extends Controller
                         'kode' => $row['Kode'], // Berdasarkan kode produk yang unik
                     ],
                     [
-                        'nama' => $row['Nama'], // Nama produk
+                        'nama_barang' => $row['Nama'], // Nama produk
                     ]
                 );
             }

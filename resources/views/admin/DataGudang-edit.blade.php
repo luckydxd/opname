@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Form Data Gudang</div>
+                <div class="card-header">Form Edit Data Gudang</div>
 
                 <div class="card-body">
                     <!-- Tampilkan pesan sukses jika ada -->
@@ -27,7 +27,7 @@
                     @endif
 
                     <!-- Form untuk input nama -->
-                    <form action="{{ route('data_gudang_update') }}" method="POST">
+                    <form action="{{ route('data_gudang_update',$gudang->id) }}" method="POST">
                         @csrf <!-- Tambahkan CSRF token untuk keamanan -->
 
                         <div class="form-group">
@@ -36,7 +36,7 @@
                             <input type="hidden" name="id" value="{{ $gudang->id }}">
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
                     </form>
                 </div>
             </div>

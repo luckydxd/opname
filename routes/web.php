@@ -47,11 +47,13 @@ Route::post('/admin/datagudang-update/', [DataGudangController::class, 'update']
 
 //Legi
 Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
+
 Route::get('/produk/upload', [ProdukController::class, 'importData'])->name('uploadForm_produk');
 // Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
 Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
 
 // 
+
 //end Legi
 
 
@@ -61,7 +63,7 @@ Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('
 Route::get('/admin/stok-barang/', [StokBarangController::class, 'index'])->name('stok_barang');
 Route::get('/admin/stok-barang/import/{id}', [StokBarangController::class, 'importData'])->name('stok_barang_import');
 Route::post('/admin/stok_barang/import-frontend', [StokBarangController::class, 'importFromFrontend'])->name('stok_barang_import_frontend');
-
+Route::get('/admin/stok_barang/get-stok-barangs', [StokBarangController::class, 'getStokBarangs'])->name('stok-barangs-get');
 
 //end Azhar
 
