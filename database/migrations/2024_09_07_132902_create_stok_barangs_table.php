@@ -9,9 +9,10 @@ class CreateStokBarangsTable extends Migration
     public function up()
     {
         Schema::create('stok_barangs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_produk')->constrained('produks')->onDelete('cascade');
-            $table->foreignId('id_gudang')->constrained('gudangs')->onDelete('cascade');
+            $table->id(); // ID sebagai primary key
+            $table->string('kode_produk'); // Pastikan tipe data string, sesuai dengan `produk.kode`
+            $table->foreign('kode_produk')->references('kode')->on('produks')->onDelete('cascade'); // Foreign key ke kode di tabel produk
+            $table->foreignId('id_stok_opname')->constrained('stok_opnames'); // Foreign key ke tabel stok_opname
             $table->integer('kuantitas');
             $table->timestamps();
         });

@@ -25,11 +25,12 @@ class DashboardAdminController extends Controller
 
     public function show($id)
     {
+        $title = 'Dashboard';
         $stokOpname = StokOpname::findOrFail($id);
 
         // Buat instance dari DataTable dan masukkan id_stok_opname
         $dataTable = new DetailOpnameDataTable($id);
 
-        return $dataTable->render('admin.detailOpname', compact('stokOpname'));
+        return $dataTable->render('admin.DetailProduk', compact('stokOpname', 'title'));
     }
 }

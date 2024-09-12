@@ -12,4 +12,10 @@ class StokOpnameController extends Controller
         $title = 'Stok Opname';
         return $dataTable->render('admin.StokOpname', compact('title'));
     }
+
+    public function importData()
+    {
+        $title = 'Stok Opname';
+        return view('admin.StokOpname-import', compact('title'));
+    }
 }

@@ -59,6 +59,7 @@ Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('
 //Azhar
 
 Route::get('/admin/stok-opname/', [StokOpnameController::class, 'index'])->name('stok_opname');
+Route::get('/admin/stok-opname/import/{id}', [StokOpnameController::class, 'importData'])->name('stok_opname_import');
 
 //end Azhar
 
@@ -77,7 +78,11 @@ Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dash
 Route::get('/user/opname_add', [DashboardController::class, 'create'])->name('user.addopname');
 Route::post('/user/opname_add', [DashboardController::class, 'store'])->name('user.storeopname');
 Route::delete('/user/dashboard/{id}', [DashboardController::class, 'destroy'])->name('user.deleteopname');
-// Route::get('user/scan/datatables', [ScanController::class, 'datatable'])->name('user.scan.datatable');
-Route::get('/user/scan/{id}', [DashboardController::class, 'edit'])->name('user.scan');
+Route::get('user/scan/datatables', [ScanController::class, 'datatable'])->name('user.scan.datatable');
+Route::get('/user/scan/{id}', [ScanController::class, 'edit'])->name('user.scan');
+Route::post('/user/scan/storeqty', [ScanController::class, 'store'])->name('user.storeqty');
+Route::delete('/user/scan/{id}', [DashboardController::class, 'destroy'])->name('user.deleteqty');
+
+
 
 //end Lucky

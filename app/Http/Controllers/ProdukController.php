@@ -9,6 +9,7 @@ use App\DataTables\DataProdukDataTable;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use App\Models\Produk;
+
 class ProdukController extends Controller
 {
     public function index(DataProdukDataTable $dataTable)
@@ -16,7 +17,7 @@ class ProdukController extends Controller
         $title = 'Data Produk';
         return $dataTable->render('admin.DataProduk', compact('title'));
     }
- 
+
     public function uploadForm()
     {
         $title = 'Data Produk';
@@ -77,5 +78,6 @@ class ProdukController extends Controller
 
    
  
+
 
 }
