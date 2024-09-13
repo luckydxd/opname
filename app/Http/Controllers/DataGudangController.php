@@ -50,4 +50,13 @@ class DataGudangController extends Controller
 
     return redirect()->back()->with('error', 'Data tidak ditemukan');
 }
+    public function delete($id){
+        $gudang = Gudang::find($id);
+        if($gudang){
+            $gudang->delete();
+            return redirect()->route('data_gudang')->with('success', 'Data berhasil dihapus');
+        }else {
+            return redirect()->route('data_gudang')->with('error', 'Data tidak ditemukan');
+        }
+    }
 }
