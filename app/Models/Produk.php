@@ -13,7 +13,7 @@ class Produk extends Model
 
     public function stokBarang()
     {
-        return $this->hasMany(StokBarang::class);
+        return $this->hasMany(StokBarang::class, 'kode_produk' );
     }
 
     public function detailStokOpnames()
