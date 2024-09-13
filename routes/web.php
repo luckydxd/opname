@@ -41,7 +41,7 @@ Route::get('/admin/datagudang-add', [DataGudangController::class, 'add'])->name(
 Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
 Route::get('/admin/datagudang-edit/{id}', [DataGudangController::class, 'edit'])->name('data_gudang_edit');
 Route::post('/admin/datagudang-update/', [DataGudangController::class, 'update'])->name('data_gudang_update');
-
+Route::get('/admin/datagudang-hapus/{id}', [DataGudangController::class, 'delete'])->name('data_gudang_delete');
 
 //end andini
 
@@ -52,7 +52,7 @@ Route::get('/produk/upload', [ProdukController::class, 'importData'])->name('upl
 // Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
 Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
 
-// 
+//
 
 //end Legi
 
