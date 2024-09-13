@@ -75,7 +75,7 @@ class DataProdukDataTable extends DataTable
         return [
 
             // Column::make('id'),
-            Column::make('nama_barang'),
+            Column::make('nama'),
             Column::make('kode')
             // Column::make ('kuantitas')
             // Column::computed('action')
