@@ -23,8 +23,11 @@ class DataGudangDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 // Tombol untuk mengedit data Gudang
                 $editUrl = route('data_gudang_edit', $row->id); // Sesuaikan dengan route edit gudang
-                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>";
+                $deleteUrl = route('data_gudang_delete', $row->id);
+                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>
+                <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2'><i class='bi bi-trash'></i></a>";
             })
+
             ->setRowId('id')
             ->addColumn('nama', function ($row) {
                 return $row->nama; // Menampilkan nama gudang

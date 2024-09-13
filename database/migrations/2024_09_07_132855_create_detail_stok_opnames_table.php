@@ -11,7 +11,8 @@ class CreateDetailStokOpnamesTable extends Migration
         Schema::create('detail_stok_opnames', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_stok_opname')->constrained('stok_opnames')->onDelete('cascade');
-            $table->foreignId('id_produk')->constrained('produks')->onDelete('cascade');
+            $table->string('kode_produk');
+            $table->foreign('kode_produk')->references('kode')->on('produks')->onDelete('cascade');
             $table->integer('kuantitas');
             $table->integer('fisik_all');
             $table->integer('selisih');

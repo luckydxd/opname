@@ -6,8 +6,8 @@
             <div class="card-body">
 
 
+             
                 {{ $dataTable->table() }}
-
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\DetailStokOpname;
+use App\Models\StokBarang;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -24,8 +25,8 @@ class DetailOpnameDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $settingsUrl = route('StokOpnameDetail', $row->id);
-                
+                $settingsUrl = "";
+
                 return "
                     <a class='btn btn-sm btn-warning rounded-circle' href='{$settingsUrl}' title='Pengaturan'>
                         <i class='bi bi-gear'></i>
@@ -37,7 +38,34 @@ class DetailOpnameDataTable extends DataTable
 
     public function query(DetailStokOpname $model): QueryBuilder
     {
-        // Mengambil data detail opname terkait berdasarkan id_stok_opname
+        // Ambil data detail opname terkait berdasarkan id_stok_opname
+        $details = $model->newQuery()->where('id_stok_opname', $this->idStokOpname)->get();
+
+        // Update kolom `fisik_all`, `selisih`, dan `keterangan`
+        foreach ($details as $detail) {
+            // Cari stok barang terkait berdasarkan `id_stok_opname` dan dapatkan kuantitasnya
+            $stokBarang = StokBarang::where('id_stok_opname', $detail->id_stok_opname)
+                ->where('kode_produk', $detail->kode_produk) // Sesuaikan pencarian stok barang berdasarkan kebutuhan
+                ->first();
+
+            // Jika stok barang ditemukan, perbarui `fisik_all`
+            if ($stokBarang) {
+                $detail->fisik_all = $stokBarang->kuantitas;
+            } else {
+                $detail->fisik_all = 0; // Jika stok barang tidak ditemukan, atur `fisik_all` ke 0
+            }
+
+            // Hitung selisih antara `kuantitas` dan `fisik_all`
+            $detail->selisih = $detail->kuantitas - $detail->fisik_all;
+
+            // Set keterangan berdasarkan nilai selisih
+            $detail->keterangan = $detail->selisih < 0 ? 'tidak balance' : 'balance';
+
+            // Simpan perubahan
+            $detail->save();
+        }
+
+        // Kembalikan query setelah diperbarui
         return $model->newQuery()->where('id_stok_opname', $this->idStokOpname);
     }
 
@@ -59,7 +87,7 @@ class DetailOpnameDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('id_produk')->title('ID Produk'),
+            Column::make('kode_produk')->title('Kode Produk'), // Gantilah dengan kolom yang benar
             Column::make('kuantitas')->title('Kuantitas'),
             Column::make('fisik_all')->title('Fisik Semua'),
             Column::make('selisih')->title('Selisih'),
@@ -77,5 +105,3 @@ class DetailOpnameDataTable extends DataTable
         return 'detailOpname_' . date('YmdHis');
     }
 }
-
-?>
