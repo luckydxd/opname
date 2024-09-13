@@ -35,7 +35,7 @@ document.getElementById('customFile').addEventListener('change', function(event)
         var nextSibling = event.target.nextElementSibling;
         nextSibling.innerText = fileName; // Mengubah teks pada label
     });
-    
+
     function handleFile(event) {
         event.preventDefault(); // Mencegah form dikirim secara tradisional
 
