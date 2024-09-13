@@ -55,7 +55,8 @@ class ProdukController extends Controller
                 Produk::Create(
                     [
                         'kode' => $row['Kode'], // Berdasarkan kode produk yang unik
-                  
+                    ],
+                    [
                         'nama' => $row['Nama'], // Nama produk
                     ]
                 );
