@@ -16,6 +16,7 @@
                         <div class="custom-file mb-4">
                             <input type="file" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Choose file</label>
+                           
                             {{-- <input type="hidden" name="id_stok_opname" value="{{ $stokOpname->id }}"> --}}
                         </div>
                         <button type="submit" class="btn btn-primary mt-0">Submit</button>
@@ -28,6 +29,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>
+
+document.getElementById('customFile').addEventListener('change', function(event) {
+        var fileName = event.target.files[0].name; // Mengambil nama file
+        var nextSibling = event.target.nextElementSibling;
+        nextSibling.innerText = fileName; // Mengubah teks pada label
+    });
+    
     function handleFile(event) {
         event.preventDefault(); // Mencegah form dikirim secara tradisional
 
