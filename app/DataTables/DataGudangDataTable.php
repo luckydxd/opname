@@ -22,7 +22,8 @@ class DataGudangDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
                 // Tombol untuk mengedit data Gudang
-                $editUrl = route('data_gudang_edit', $row->id); // Sesuaikan dengan route edit gudang
+                $editUrl = route('data_gudang_edit', $row->id);
+                 // Sesuaikan dengan route edit gudang
                 return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>";
             })
 

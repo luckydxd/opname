@@ -50,9 +50,9 @@ class DetailOpnameDataTable extends DataTable
 
             // Jika stok barang ditemukan, perbarui `fisik_all`
             if ($stokBarang) {
-                $detail->fisik_all = $stokBarang->kuantitas;
+                $detail->kuantitas = $stokBarang->kuantitas;
             } else {
-                $detail->fisik_all = 0; // Jika stok barang tidak ditemukan, atur `fisik_all` ke 0
+                $detail->kuantitas = 0; // Jika stok barang tidak ditemukan, atur `fisik_all` ke 0
             }
 
             // Hitung selisih antara `kuantitas` dan `fisik_all`
