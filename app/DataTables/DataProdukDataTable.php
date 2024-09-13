@@ -19,7 +19,7 @@ class DataProdukDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
+        return (new EloquentDataTable($query));
         
             // ->addColumn('action', function ($row) {
             //     return '<a href="' . route('produk.edit', $row->id) . '" class="btn btn-sm btn-primary">Edit</a>
@@ -33,9 +33,9 @@ class DataProdukDataTable extends DataTable
             // ->addColumn('kode', function ($row) {
             //     return $row->kode;
             // });
-            ->addColumn('kuantitas', function ($row) {
-                return $row->kuanitas ?? 'N/A'; // Menambahkan data default jika tidak tersedia
-            });
+            // ->addColumn('kuantitas', function ($row) {
+            //     return $row->kuanitas ?? 'N/A'; // Menambahkan data default jika tidak tersedia
+            // });
     }
 
     /**
@@ -75,9 +75,9 @@ class DataProdukDataTable extends DataTable
         return [
 
             // Column::make('id'),
-            Column::make('kode'),
             Column::make('nama_barang'),
-            Column::make ('kuantitas')
+            Column::make('kode')
+            // Column::make ('kuantitas')
             // Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
