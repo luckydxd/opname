@@ -9,7 +9,7 @@ class DetailStokOpname extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_stok_opname', 'id_produk', 'kuantitas', 'fisik_all', 'selisih', 'keterangan'];
+    protected $fillable = ['id_stok_opname', 'kode_produk', 'kuantitas', 'fisik_all', 'selisih', 'keterangan'];
 
     public function stokOpname()
     {
@@ -18,6 +18,6 @@ class DetailStokOpname extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class, 'id_produk');
+        return $this->belongsTo(Produk::class, 'kode_produk', 'kode');
     }
 }

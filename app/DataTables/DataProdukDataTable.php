@@ -19,18 +19,23 @@ class DataProdukDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
-            ->addColumn('action', function ($row) {
-                return '<a href="' . route('produk.edit', $row->id) . '" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="' . route('produk.destroy', $row->id) . '" class="btn btn-sm btn-danger">Delete</a>';
-            })
-            ->setRowId('id')
-            ->addColumn('nama', function ($row) {
-                return $row->nama;
-            })
-            ->addColumn('kode', function ($row) {
-                return $row->kode;
-            });
+        return (new EloquentDataTable($query));
+        
+            // ->addColumn('action', function ($row) {
+            //     return '<a href="' . route('produk.edit', $row->id) . '" class="btn btn-sm btn-primary">Edit</a>
+            //             <a href="' . route('produk.destroy', $row->id) . '" class="btn btn-sm btn-danger">Delete</a>';
+            // })
+            
+            // ->setRowId('id');
+            // ->addColumn('nama', function ($row) {
+            //     return $row->nama;
+            // });
+            // ->addColumn('kode', function ($row) {
+            //     return $row->kode;
+            // });
+            // ->addColumn('kuantitas', function ($row) {
+            //     return $row->kuanitas ?? 'N/A'; // Menambahkan data default jika tidak tersedia
+            // });
     }
 
     /**
@@ -69,10 +74,11 @@ class DataProdukDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
+            // Column::make('id'),
             Column::make('nama'),
-            Column::make('kode'),
-            Column::computed('action')
+            Column::make('kode')
+            // Column::make ('kuantitas')
+            // Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)

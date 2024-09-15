@@ -38,11 +38,11 @@
                      </div>
                  </a>
              </li>
-             <li class="menu {{ $title == 'Stok Opname' ? 'active' : '' }}">
-                 <a href="{{ route('stok_opname') }}" aria-expanded="true" class="dropdown-toggle nav-link">
+             <li class="menu {{ $title == 'Stok Barang' ? 'active' : '' }}">
+                 <a href="{{ route('stok_barang') }}" aria-expanded="true" class="dropdown-toggle nav-link">
                      <div class="fs-6 ">
                          <i class="bi bi-card-heading mx-2"></i>
-                         <span> Stok Opname</span>
+                         <span> Stok Barang</span>
                      </div>
                  </a>
              </li>
