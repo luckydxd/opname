@@ -2,12 +2,14 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DataGudangController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\StokOpnameController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ScanController;
+
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -22,6 +24,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
 Route::get('/', function () {
     return view('welcome');
@@ -76,10 +80,14 @@ Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dash
 Route::get('/user/opname_add', [DashboardController::class, 'create'])->name('user.addopname');
 Route::post('/user/opname_add', [DashboardController::class, 'store'])->name('user.storeopname');
 Route::delete('/user/dashboard/{id}', [DashboardController::class, 'destroy'])->name('user.deleteopname');
-Route::get('user/scan/datatables', [ScanController::class, 'datatable'])->name('user.scan.datatable');
-Route::get('/user/scan/{id}', [ScanController::class, 'edit'])->name('user.scan');
+// Route::get('user/scan/datatables/{id}', [ScanController::class, 'datatable'])->name('user.scan.datatable');
+Route::get('/user/scan/{id}', [ScanController::class, 'scan'])->name('user.scan');
+Route::get('/user/scan/{id}/datatable', [ScanController::class, 'datatable'])->name('user.scan.datatable');
 Route::post('/user/scan/storeqty', [ScanController::class, 'store'])->name('user.storeqty');
-Route::delete('/user/scan/{id}', [DashboardController::class, 'destroy'])->name('user.deleteqty');
+Route::delete('/user/scan/{id}', [ScanController::class, 'destroy'])->name('user.deleteqty');
+Route::get('/user/scan/edit/{id}', [ScanController::class, 'edit'])->name('user.editqty');
+Route::get('/user/scan/edit/qty', [ScanController::class, 'storeqty'])->name('user.store.detailqty');
+
 
 
 

@@ -4,28 +4,38 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>CORK Admin Template - Login Cover Page</title>
-    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/> -->
+    <title>Login </title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/authentication/form-1.css" rel="stylesheet" type="text/css" />
+    <link href="demo5/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="demo5/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="demo5/assets/css/authentication/form-1.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/forms/switches.css">
+    <link rel="stylesheet" type="text/css" href="demo5/assets/css/forms/theme-checkbox-radio.css">
+    <link rel="stylesheet" type="text/css" href="demo5/assets/css/forms/switches.css">
+
+    <link href="demo5/assets/css/loader.css" rel="stylesheet" type="text/css" />
+    <script src="demo5/assets/js/loader.js"></script>
+
+
 </head>
-<body class="form">
-    
+<body class="form" >
+        <!-- BEGIN LOADER -->
+        <div id="load_screen"> <div class="loader"> <div class="loader-content">
+        <div class="spinner-grow align-self-center"></div>
+    </div></div></div>
+    <!--  END LOADER -->
+
+
 
     <div class="form-container">
         <div class="form-form">
             <div class="form-form-wrap">
-                <div class="form-container">
-                    <div class="form-content">
+                <div class="form-container" style="width: 450px;">
+                    <div class="form-content" >
 
-                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">CORK</span></a></h1>
-                        <p class="signup-link">New Here? <a href="auth_register.html">Create an account</a></p>
+                        <h1 class="">Log In </h1>
                         <form class="text-left">
                             <div class="form">
 
@@ -47,45 +57,32 @@
                                         </label>
                                     </div>
                                     <div class="field-wrapper">
-                                        <button type="submit" class="btn btn-primary" value="">Log In</button>
+                                        <button type="submit" class="btn btn-primary btn-lg" value="">Log In</button>
                                     </div>
                                     
                                 </div>
 
-                                <div class="field-wrapper text-center keep-logged-in">
-                                    <div class="n-chk new-checkbox checkbox-outline-primary">
-                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input">
-                                          <span class="new-control-indicator"></span>Keep me logged in
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="field-wrapper">
-                                    <a href="auth_pass_recovery.html" class="forgot-pass-link">Forgot Password?</a>
-                                </div>
+                                
 
                             </div>
-                        </form>                        
-                        <p class="terms-conditions">© 2020 All Rights Reserved. <a href="index.html">CORK</a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
-
+                        </form>    
                     </div>                    
                 </div>
             </div>
         </div>
         <div class="form-image">
-                <img src="../bg.jpg" alt="login image" style="width: 100%; height: auto;">
+                <img src="../bg3x.png" alt="login image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </div>
 
     
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
-    <script src="bootstrap/js/popper.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="demo5/assets/js/libs/jquery-3.1.1.min.js"></script>
+    <script src="demo5/bootstrap/js/popper.min.js"></script>
+    <script src="demo5/bootstrap/js/bootstrap.min.js"></script>
     
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <script src="assets/js/authentication/form-1.js"></script>
+    <script src="demo5/assets/js/authentication/form-1.js"></script>
 
 </body>
 </html>

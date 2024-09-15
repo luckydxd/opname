@@ -18,6 +18,8 @@
     <link href="{{ asset('demo5/assets/css/structure.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/plugins/flatpickr/flatpickr.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href={{ asset('demo5/assets/css/loader.css') }} rel="stylesheet" type="text/css" />
+    <script src={{ asset('demo5/assets/js/loader.js') }}></script>
 
     <!-- END GLOBAL MANDATORY STYLES -->
 
