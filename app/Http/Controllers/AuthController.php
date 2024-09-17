@@ -9,37 +9,51 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // Menampilkan halaman login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
+    // Proses login
     public function login(Request $request)
     {
         $request->validate([
-            'login' => 'required', // Bisa berupa email atau username
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
-
-        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-
-        $credentials = [
-            $loginField => $request->input('login'),
-            'password' => $request->input('password'),
-        ];
-
+    
+        $credentials = $request->only('email', 'password');
+    
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('admin/dashboard');
+            $user = Auth::user();
+    
+            // Tambahkan log untuk memastikan role benar
+            logger()->info('Login berhasil dengan role: ' . $user->role);
+    
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard_admin');
+            } elseif ($user->role === 'user') {
+                return redirect()->route('dashboard_user');
+            }
         }
-
+    
+        // Jika login gagal
+        logger()->error('Login gagal dengan email: ' . $request->email);
+    
         return back()->withErrors([
-            'login' => 'The provided credentials do not match our records.',
+            'email' => 'Email atau password salah',
         ]);
     }
+    
+    
 
+    // Proses logout
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect()->route('login'); 
     }
+
+
 }

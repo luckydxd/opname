@@ -52,28 +52,28 @@
                             </div>
                             <div class="widget-content widget-content-area" style="height: 400px;">
                             <form action="{{ route('user.storeqty', ['id' => $stokOpname->id]) }}" method="POST">
-    @csrf
-    <input type="hidden" name="id_stok_opname" value="{{ $stokOpname->id }}">
-    <div class="form-group mb-4">
-        <label for="codeSelect">Code</label>
-        <div class="input-group">
-            <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required readonly>
-            <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">
-                    <!-- SVG Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
-                        <path d="M24 32C10.7 32 0 42.7 0 56L0 456c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24L64 56c0-13.3-10.7-24-24-24L24 32zm88 0c-8.8 0-16 7.2-16 16l0 416c0 8.8 7.2 16 16 16s16-7.2 16-16l0-416c0-8.8-7.2-16-16-16zm72 0c-13.3 0-24 10.7-24 24l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0zm96 0c-13.3 0-24 10.7-24 24l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0zM448 56l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0c-13.3 0-24 10.7-24 24zm-64-8l0 416c0 8.8 7.2 16 16 16s16-7.2 16-16l0-416c0-8.8-7.2-16-16-16s-16 7.2-16 16z"/>
-                    </svg>
-                </span>
-            </div>
-        </div>
-    </div>
+                            @csrf
+                            <input type="hidden" name="id_stok_opname" value="{{ $stokOpname->id }}">
+                            <div class="form-group mb-4">
+                                <label for="codeSelect">Code</label>
+                                <div class="input-group">
+                                    <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required readonly>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <!-- SVG Icon -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                                                <path d="M24 32C10.7 32 0 42.7 0 56L0 456c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24L64 56c0-13.3-10.7-24-24-24L24 32zm88 0c-8.8 0-16 7.2-16 16l0 416c0 8.8 7.2 16 16 16s16-7.2 16-16l0-416c0-8.8-7.2-16-16-16zm72 0c-13.3 0-24 10.7-24 24l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0zm96 0c-13.3 0-24 10.7-24 24l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0zM448 56l0 400c0 13.3 10.7 24 24 24l16 0c13.3 0 24-10.7 24-24l0-400c0-13.3-10.7-24-24-24l-16 0c-13.3 0-24 10.7-24 24zm-64-8l0 416c0 8.8 7.2 16 16 16s16-7.2 16-16l0-416c0-8.8-7.2-16-16-16s-16 7.2-16 16z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                                   <div class="form-group mb-4">
                                       <label for="produkSelect">Produk</label>
-                                      <select class="form-control basic" id="produkSelect" name="id_produk" required readonly>
+                                      <select class="form-control basic" id="produkSelect" name="kode_produk" required readonly>
                                           <option value="">-- Nama Produk --</option>
                                           @foreach ($produks as $produk)
-                                              <option value="{{ $produk->id }}" data-kode="{{ $produk->kode }}">{{ $produk->nama }}</option>
+                                              <option value="{{ $produk->kode }}" data-kode="{{ $produk->kode }}">{{ $produk->nama }}</option>
                                           @endforeach
                                       </select>
                                   </div>
@@ -97,7 +97,7 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Detail Stok Opname</h4>
+                                    <h4>Data Detail Stok Opname</h4>
                                     </div>          
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('user.deleteqty', ':id') }}".replace(':id', id),
+                            url: "{{ route('user.deleteqty', ':id') }}".replace(':id', deleteId),
                             type: 'DELETE',
                             success: function(result) {
                                 Swal.fire({

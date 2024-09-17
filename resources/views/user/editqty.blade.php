@@ -21,24 +21,25 @@
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area" style="height: 400px;">
-                                <form action="{{ route('user.store.detailqty') }}" method="POST">
-                                @csrf
+                                <form action="{{ route('user.update.qty',$DetailStokOpname->id) }}" method="POST" >           
+                                 @csrf
+                                
+
+                                <input type="hidden" name="id_stok_opname" value="{{ $DetailStokOpname->id_stok_opname }}" required>
                                 <div class="form-group mb-4">
-                                    <label for="nomorDokumen">Nomor Kode</label>
-                                    <input type="text" class="form-control" id="nomorDokumen" value="" readonly  required>
+                                    <label for="kodeProduk">Nomor Kode</label>
+                                    <input type="text" class="form-control" id="kodeProduk" value="{{$item->kode}}" readonly >
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label for="nomorDokumen">Nama Barang</label>
-                                    <input type="text" class="form-control" id="nomorDokumen" value="" readonly required>
+                                    <label for="namaProduk">Nama Barang</label>
+                                    <input type="text" class="form-control" id="namaProduk" value="{{$item->nama}}" readonly required>
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label for="nomorDokumen">QTY</label>
-                                    <input type="text" class="form-control" id="nomorDokumen" value=""  required>
+                                    <label for="fisik_all">QTY</label>
+                                    <input type="text" class="form-control" id="fisik_all" name="fisik_all" value="{{$item->fisik_all}}"  required>
                                 </div>
-
-
    
                                         <button class="btn btn-primary" style="margin-left: 0px">
                                         Submit</button>

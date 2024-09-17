@@ -27,7 +27,7 @@ class ScanController extends Controller
                 'produks.nama as nama',
                 'detail_stok_opnames.fisik_all as fisik_all'
             ])
-            ->join('produks', 'produks.id', '=', 'detail_stok_opnames.id_produk')
+            ->join('produks', 'produks.kode', '=', 'detail_stok_opnames.kode_produk')
             ->where('detail_stok_opnames.id_stok_opname', $id);  // Menambahkan kondisi filter
     
         return DataTables::of($data)->make(true);
@@ -47,33 +47,13 @@ class ScanController extends Controller
     {
         $validated = $request->validate([
             'id_stok_opname' => 'required|exists:stok_opnames,id',
-            'id_produk' => 'required|exists:produks,id',
+            'kode_produk' => 'required|exists:produks,kode',
             'fisik_all' => 'required|numeric',
         ]);
     
         DetailStokOpname::create([
             'id_stok_opname' => $validated['id_stok_opname'],
-            'id_produk' => $validated['id_produk'],
-            'fisik_all' => $validated['fisik_all'],
-            'kuantitas' => 0, 
-            'selisih' => 0,
-            'keterangan' => null,
-        ]);
-    
-        return redirect()->route('dashboard_user')->with('success', 'Data berhasil disimpan.');
-    }
-    
-    public function storeqty(Request $request)
-    {
-        $validated = $request->validate([
-            'id_stok_opname' => 'required|exists:stok_opnames,id',
-            'id_produk' => 'required|exists:produks,id',
-            'fisik_all' => 'required|numeric',
-        ]);
-    
-        DetailStokOpname::create([
-            'id_stok_opname' => $validated['id_stok_opname'],
-            'id_produk' => $validated['id_produk'],
+            'kode_produk' => $validated['kode_produk'],
             'fisik_all' => $validated['fisik_all'],
             'kuantitas' => 0, 
             'selisih' => 0,
@@ -95,9 +75,37 @@ public function edit($id)
 {
     
     $DetailStokOpname = DetailStokOpname::findOrFail($id);
-    
 
-    return view('user.editqty', compact('DetailStokOpname'));
+    // Join with 'produks' to get product details like kode and nama
+    $item = DetailStokOpname::select([
+        'detail_stok_opnames.id',
+        'produks.kode as kode',
+        'produks.nama as nama',
+        'detail_stok_opnames.fisik_all as fisik_all',
+        'detail_stok_opnames.id_stok_opname'
+    ])
+    ->join('produks', 'produks.kode', '=', 'detail_stok_opnames.kode_produk')
+    ->where('detail_stok_opnames.id', $id) // Use the specific record's ID here
+    ->first(); 
+
+    return view('user.editqty', compact('DetailStokOpname', 'item')); // Pass both $DetailStokOpname and $item
+
+}
+
+public function updateqty(Request $request, $id)
+{
+    $request->validate([
+        'id_stok_opname' => 'required|exists:stok_opnames,id',
+        'fisik_all' => 'required|numeric',
+    ]);
+
+    $DetailStokOpname = DetailStokOpname::findOrFail($id);
+    $DetailStokOpname->update([
+        'fisik_all' => $request->fisik_all,
+    ]);
+
+    return redirect()->route('user.scan', $DetailStokOpname->id_stok_opname)
+    ->with('success', 'Data berhasil diperbarui.');
 }
 
 public function destroy($id)
