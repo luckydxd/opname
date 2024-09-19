@@ -89,7 +89,7 @@ class DetailOpnameDataTable extends DataTable
             Column::make('id'),
             Column::make('kode_produk')->title('Kode Produk'), // Gantilah dengan kolom yang benar
             Column::make('kuantitas')->title('Kuantitas'),
-            Column::make('fisik_all')->title('Fisik Semua'),
+            Column::make('fisik_all')->title('Fisik All'),
             Column::make('selisih')->title('Selisih'),
             Column::make('keterangan')->title('Keterangan'),
             Column::computed('action')
