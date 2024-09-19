@@ -54,6 +54,14 @@
                      </div>
                  </a>
              </li>
+             <li class="menu ">
+                 <a href="{{ route('data_user') }}" aria-expanded="true" class="dropdown-toggle nav-link">
+                     <div class="fs-6">
+                         <i class="bi bi-person mx-2"></i>
+                         <span> Data User</span>
+                     </div>
+                 </a>
+             </li>
          </ul>
      </nav>
 

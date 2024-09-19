@@ -17,13 +17,15 @@ class StokOpname extends Model
         return $this->belongsTo(Gudang::class, 'id_gudang');
     }
 
+    public function stokBarangs()
+{
+    return $this->hasMany(StokBarang::class, 'id_stok_opname');
+}
+
     public function detailStokOpnames()
     {
         return $this->hasMany(DetailStokOpname::class, 'id_stok_opname');
     }
-    public function stokBarangs()
-    {
-        return $this->hasMany(StokBarang::class, 'id_stok_opname');
-    }
+   
     
 }
