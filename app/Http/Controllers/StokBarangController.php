@@ -87,7 +87,34 @@ class StokBarangController extends Controller
                 ->addColumn('stok_opname', function ($row) {
                     return $row->stokOpname->nama ?? 'N/A'; // Mengakses nama stok opname dari relasi
                 })
+                ->addColumn('action', function ($row) {
+                    $editUrl = route('edit-barang', $row->id);
+                    $deleteUrl = route('delete-barang', $row->id);
+                    $btn = "<a href='{$editUrl}' class='btn btn-warning btn-sm'><i class='bi bi-gear'></i></a>
+                    <a href='{$deleteUrl}' class='btn btn-danger btn-sm'><i class='bi bi-trash'></i></a>";
+                    return $btn;
+                })
+                
+                ->rawColumns(['action'])
                 ->make(true);
         }
+    }
+
+    public function edit($id){
+        $title = 'Stok Barang';
+        $stokBarang = StokBarang::find($id);
+        return view('admin.StokBarang-edit', compact('title', 'stokBarang'));
+    }
+
+    public function update(Request $request, $id){
+        $stokBarang = StokBarang::find($id);
+        $stokBarang->update($request->all());
+        return redirect()->route('stok_barang_import',  $stokBarang->id_stok_opname)->with('success', 'Data berhasil diupdate');
+    }
+
+    public function destroy($id){
+        $stokBarang = StokBarang::find($id);
+        $stokBarang->delete();
+        return redirect()->route('stok_barang_import',  $stokBarang->id_stok_opname)->with('success', 'Data berhasil dihapus');
     }
 }

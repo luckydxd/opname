@@ -28,12 +28,13 @@ class DashboardController extends Controller
     {
         $gudangs = Gudang::all();
 
+        $currentYear = date('y');
         $currentMonth = date('m');
         $lastStokOpname = StokOpname::whereMonth('tanggal_opname', $currentMonth)->orderBy('id', 'desc')->first();    
         $nextOrder = $lastStokOpname ? sprintf('%02d', intval(substr($lastStokOpname->nomor_dokumen, -2)) + 1) : '01';
     
         // Auto Generate nomor dokumen dengan format SOP/{Bulan}/{Urutan}
-        $nomorDokumen = 'SOP/' . $currentMonth . '/' . $nextOrder;
+        $nomorDokumen = 'SOP/' . $currentYear .'/'. $currentMonth . '/' . $nextOrder;
     
         return view('user.addopname', compact('gudangs','nomorDokumen'));
     }
@@ -70,7 +71,7 @@ public function destroy($id)
         return redirect()->back()->with('error', 'Stok Opname tidak ditemukan.');
     }
 
-    // Hapus detail stok opname terlebih dahulu (jika ada)
+    $stokOpname->stokBarangs()->delete();
     $stokOpname->detailStokOpnames()->delete();
     $stokOpname->delete();
     

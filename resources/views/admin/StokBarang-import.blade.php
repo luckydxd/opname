@@ -44,6 +44,7 @@
                             <th>Nama Produk</th>
 
                             <th>Kuantitas</th>
+                            <th>action</th>
                         </tr>
                     </thead>
                 </table>
@@ -80,6 +81,10 @@
                         data: 'kuantitas',
                         name: 'kuantitas'
                     },
+                    {
+                        data: 'action',
+                        name: 'action',
+                    }
                 ],
                 dom: 'lfrtip' // Menentukan elemen DOM untuk ditampilkan (menghilangkan tombol-tombol ekspor)
             });
