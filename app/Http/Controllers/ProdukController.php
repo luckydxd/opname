@@ -41,6 +41,7 @@ class ProdukController extends Controller
         try {
             // Iterasi data dan simpan ke dalam database
             foreach ($data as $row) {
+                
                 // Validasi data per baris
                 $rowValidator = Validator::make($row, [
                     'Kode' => 'required', // Kode produk harus ada
@@ -52,11 +53,10 @@ class ProdukController extends Controller
                 }
 
                 // Simpan atau perbarui produk berdasarkan 'Kode' produk yang unik
-                Produk::updateOrCreate(
+                Produk::Create(
                     [
                         'kode' => $row['Kode'], // Berdasarkan kode produk yang unik
-                    ],
-                    [
+                    
                         'nama' => $row['Nama'], // Nama produk
                     ]
                 );

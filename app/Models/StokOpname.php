@@ -26,4 +26,6 @@ class StokOpname extends Model
     {
         return $this->hasMany(DetailStokOpname::class, 'id_stok_opname');
     }
+   
+    
 }

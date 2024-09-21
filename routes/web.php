@@ -33,59 +33,62 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-// Fadhil
-Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
-Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+    // Fadhil
+    Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
+    Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
 
 
 
-//end Fadhil
+    //end Fadhil
 
-// andini
-Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
-Route::get('/admin/datagudang-add', [DataGudangController::class, 'add'])->name('data_gudang_add');
-Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
-Route::get('/admin/datagudang-edit/{id}', [DataGudangController::class, 'edit'])->name('data_gudang_edit');
-Route::post('/admin/datagudang-update/', [DataGudangController::class, 'update'])->name('data_gudang_update');
-Route::get('/admin/datagudang-hapus/{id}', [DataGudangController::class, 'delete'])->name('data_gudang_delete');
+    // andini
+    Route::get('/admin/data-gudang', [DataGudangController::class, 'index'])->name('data_gudang');
+    Route::get('/admin/datagudang-add', [DataGudangController::class, 'add'])->name('data_gudang_add');
+    Route::post('/form-submit', [DataGudangController::class, 'store'])->name('form.submit');
+    Route::get('/admin/datagudang-edit/{id}', [DataGudangController::class, 'edit'])->name('data_gudang_edit');
+    Route::post('/admin/datagudang-update/', [DataGudangController::class, 'update'])->name('data_gudang_update');
+    Route::get('/admin/datagudang-hapus/{id}', [DataGudangController::class, 'delete'])->name('data_gudang_delete');
 
-//end andini
+    //end andini
 
-//Legi
-Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
+    //Legi
+    Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
 
-Route::get('/produk/upload', [ProdukController::class, 'importData'])->name('uploadForm_produk');
-// Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
-Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
+    Route::get('/produk/upload', [ProdukController::class, 'importData'])->name('uploadForm_produk');
+    // Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
+    Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
 
-//
+    //
 
-//end Legi
-
-
-
-//Azhar
-
-Route::get('/admin/stok-barang/', [StokBarangController::class, 'index'])->name('stok_barang');
-Route::get('/admin/stok-barang/import/{id}', [StokBarangController::class, 'importData'])->name('stok_barang_import');
-Route::post('/admin/stok_barang/import-frontend', [StokBarangController::class, 'importFromFrontend'])->name('stok_barang_import_frontend');
-Route::get('/admin/stok_barang/get-stok-barangs', [StokBarangController::class, 'getStokBarangs'])->name('stok-barangs-get');
-
-//end Azhar
+    //end Legi
 
 
 
-// Route::get('/dashboard', function () {
-//     return view('admin.dashboard');
-// });
+    //Azhar
 
-//Lucky Route
-Route::get('/admin/data-user', [DataUserController::class, 'index'])->name('data_user');
-Route::get('/admin/datauser-add', [DataUserController::class, 'add'])->name('data_user_add');
-Route::post('/admin/datauser-store', [DataUserController::class, 'store'])->name('data_user_store');
-Route::get('/admin/datauser-edit/{id}', [DataUserController::class, 'edit'])->name('data_user_edit');
-Route::post('/admin/datauser-update', [DataUserController::class, 'update'])->name('data_user_update');
-Route::delete('/admin/datauser-delete/{id}', [DataUserController::class, 'delete'])->name('data_user_delete');
+    Route::get('/admin/stok-barang/', [StokBarangController::class, 'index'])->name('stok_barang');
+    Route::get('/admin/stok-barang/import/{id}', [StokBarangController::class, 'importData'])->name('stok_barang_import');
+    Route::post('/admin/stok_barang/import-frontend', [StokBarangController::class, 'importFromFrontend'])->name('stok_barang_import_frontend');
+    Route::get('/admin/stok_barang/get-stok-barangs', [StokBarangController::class, 'getStokBarangs'])->name('stok-barangs-get');
+    Route::get('/admin/stok_barang/edit-stok-barang/{id}', [StokBarangController::class, 'edit'])->name('edit-barang');
+    Route::post('/admin/stok_barang/update-stok-barang/{id}', [StokBarangController::class, 'update'])->name('update-barang');
+    Route::get('/admin/stok_barang/delete-stok-barang/{id}', [StokBarangController::class, 'destroy'])->name('delete-barang');
+
+    //end Azhar
+
+
+
+    // Route::get('/dashboard', function () {
+    //     return view('admin.dashboard');
+    // });
+
+    //Lucky Route
+    Route::get('/admin/data-user', [DataUserController::class, 'index'])->name('data_user');
+    Route::get('/admin/datauser-add', [DataUserController::class, 'add'])->name('data_user_add');
+    Route::post('/admin/datauser-store', [DataUserController::class, 'store'])->name('data_user_store');
+    Route::get('/admin/datauser-edit/{id}', [DataUserController::class, 'edit'])->name('data_user_edit');
+    Route::post('/admin/datauser-update', [DataUserController::class, 'update'])->name('data_user_update');
+    Route::delete('/admin/datauser-delete/{id}', [DataUserController::class, 'delete'])->name('data_user_delete');
 
 });
 
