@@ -43,8 +43,8 @@ class ProdukController extends Controller
             foreach ($data as $row) {
                 // Validasi data per baris
                 $rowValidator = Validator::make($row, [
-                    'Kode' => 'required|string', // Kode produk harus ada
-                    'Nama' => 'required|string', // Nama produk harus ada
+                    'Kode' => 'required', // Kode produk harus ada
+                    'Nama' => 'required', // Nama produk harus ada
                 ]);
 
                 if ($rowValidator->fails()) {

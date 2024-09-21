@@ -60,7 +60,10 @@ class ScanController extends Controller
             'keterangan' => null,
         ]);
     
-        return redirect()->route('dashboard_user')->with('success', 'Data berhasil disimpan.');
+        $stokOpname = StokOpname::first();
+        $id = $stokOpname->id;
+
+        return redirect()->route('user.scan', ['id' => $id])->with('success', 'Data berhasil disimpan.');
     }
     
 

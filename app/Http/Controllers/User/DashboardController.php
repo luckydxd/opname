@@ -53,7 +53,7 @@ class DashboardController extends Controller
             'tanggal_opname' => $request->tanggal_opname,
         ]);
     
-        return redirect()->route('dashboard_user')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('dashboard_user')->with('success', 'Data stok opname berhasil ditambahkan');
 }
 
 public function edit($id)

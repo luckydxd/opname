@@ -38,7 +38,6 @@ class AuthController extends Controller
             }
         }
     
-        // Jika login gagal
         logger()->error('Login gagal dengan email: ' . $request->email);
     
         return back()->withErrors([
