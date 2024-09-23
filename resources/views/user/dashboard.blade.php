@@ -10,12 +10,23 @@
 </nav>
 
 
+
+
 <div class="col-lg-12 col-md-12 mt-3 layout-spacing">
 <div class="d-flex justify-content-end mb-3">
                                     <a href="{{ route ('user.addopname')}}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                         Tambah Data
                                     </a>
                                     </div>
+                                    
+                        @if (session('success'))
+                        <div class="alert alert-arrow-left alert-icon-left alert-light-primary mb-4" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" data-dismiss="alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <strong>Berhasil!</strong> {{ session('success') }}
+                        </div>
+                        @endif
+
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
@@ -190,3 +201,4 @@
            
     </script>
 @endpush
+
