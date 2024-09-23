@@ -29,7 +29,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
-    return view('welcome');
+     return redirect()->route('login');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
