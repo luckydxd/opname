@@ -36,17 +36,31 @@
                     <div class="form-content" >
 
                         <h1 class="">Log In </h1>
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                @foreach ($errors->all() as $error)
+                                    <p class="mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/> <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                                                    </svg>  {{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+
                         <form method="POST" action="{{ route('login.post') }}">
                         @csrf
                             <div class="form">
-
                                 <div id="username-field" class="field-wrapper input">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    <input type="email" name="email"  class="form-control" placeholder="Email">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
                                 </div>
 
                                 <div id="password-field" class="field-wrapper input mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
                                     <input id="password" name="password" type="password" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="d-sm-flex justify-content-between">
@@ -60,19 +74,15 @@
                                     <div class="field-wrapper">
                                         <button type="submit" class="btn btn-primary btn-lg" value="">Log In</button>
                                     </div>
-                                    
                                 </div>
-
-                                
-
                             </div>
-                        </form>    
+                        </form>       
                     </div>                    
                 </div>
             </div>
         </div>
         <div class="form-image">
-                <img src="../bg3x.png" alt="login image" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="../bg-png.png" alt="login image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </div>
 
