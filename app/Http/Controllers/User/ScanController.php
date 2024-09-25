@@ -44,27 +44,40 @@ class ScanController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'id_stok_opname' => 'required|exists:stok_opnames,id',
-            'kode_produk' => 'required|exists:produks,kode',
-            'fisik_all' => 'required|numeric',
-        ]);
-    
+{
+    $validated = $request->validate([
+        'id_stok_opname' => 'required|exists:stok_opnames,id',
+        'kode_produk' => 'required|exists:produks,kode',
+        'fisik_all' => 'required|numeric',
+    ]);
+
+    // Mencari data berdasarkan id_stok_opname dan kode_produk terlebih dahulu apakah data ditemukan atau tidak
+    $detailStokOpname = DetailStokOpname::where('id_stok_opname', $validated['id_stok_opname'])
+        ->where('kode_produk', $validated['kode_produk'])
+        ->first();
+
+    if ($detailStokOpname) {
+        // Kalau data ditemukan, fisik_all ditambah dengan nilai baru ,contohnya fisik_all=10, diinput user 10, maka hasilnya 20
+        $detailStokOpname->fisik_all += $validated['fisik_all'];
+        $detailStokOpname->save();
+    } else {
+        // Jika data tidak ditemukan, buat data baru dengan nilai fisik_all dari input
         DetailStokOpname::create([
             'id_stok_opname' => $validated['id_stok_opname'],
             'kode_produk' => $validated['kode_produk'],
             'fisik_all' => $validated['fisik_all'],
-            'kuantitas' => 0, 
+            'kuantitas' => 0,
             'selisih' => 0,
             'keterangan' => null,
         ]);
-    
-        $stokOpname = StokOpname::first();
-        $id = $stokOpname->id;
-
-        return redirect()->route('user.scan', ['id' => $id])->with('success', 'Data berhasil disimpan.');
     }
+
+    $stokOpname = StokOpname::find($validated['id_stok_opname']);
+    $id = $stokOpname->id;
+
+    return redirect()->route('user.scan', ['id' => $id])->with('success', 'Data berhasil disimpan.');
+}
+
     
 
 public function scan($id)
