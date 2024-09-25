@@ -42,7 +42,6 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Produk</th>
-
                             <th>Kuantitas</th>
                             <th>action</th>
                         </tr>
@@ -68,7 +67,13 @@
             $('#stok-barang-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('stok-barangs-get') }}", // Menggunakan nama route yang benar
+                ajax: {
+                    url: "{{ route('stok-barangs-get') }}",
+                    data: {
+                        id_stok_opname: {{ $stokOpname->id }}
+                    },
+                }, // Menggunakan nama route yang benar
+
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
