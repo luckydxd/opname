@@ -53,12 +53,13 @@ class StokBarangController extends Controller
                     'Kuantitas' => 'required'
                 ]);
 
+
                 if ($rowValidator->fails()) {
                     continue; // Jika ada kesalahan di baris tertentu, lewati baris tersebut
                 }
 
                 // Simpan atau perbarui stok barang berdasarkan 'Kode' produk yang unik
-                StokBarang::Create(
+                $p = StokBarang::Create(
                     [
                         'kode_produk' => $row['Kode'], // Berdasarkan 'kode_produk' produk yang unik
                         'id_stok_opname' => $id_stok_opname,
@@ -66,6 +67,7 @@ class StokBarangController extends Controller
                         'kuantitas' => $row['Kuantitas']
                     ]
                 );
+                dd($p);
             }
 
             return response()->json(['message' => 'Data stok berhasil diimpor!'], 200);
@@ -77,8 +79,9 @@ class StokBarangController extends Controller
 
     public function getStokBarangs(Request $request)
     {
+       
         if ($request->ajax()) {
-            $data = StokBarang::with(['produk', 'stokOpname'])->get();
+            $data = StokBarang::with(['produk', 'stokOpname'])->where('id_stok_opname', $request->id_stok_opname)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('produk', function ($row) {
