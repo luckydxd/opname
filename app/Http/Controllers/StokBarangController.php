@@ -91,8 +91,10 @@ class StokBarangController extends Controller
                 ->addColumn('action', function ($row) {
                     $editUrl = route('edit-barang', $row->id);
                     $deleteUrl = route('delete-barang', $row->id);
-                    $btn = "<a href='{$editUrl}' class='btn btn-warning btn-sm'><i class='bi bi-gear'></i></a>
-                    <a href='{$deleteUrl}' class='btn btn-danger btn-sm'><i class='bi bi-trash'></i></a>";
+                    $iconGear = GEAR_SVG;
+                    $iconTrash = TRASH_SVG;
+                    $btn = "<a href='{$editUrl}' class='btn btn-warning btn-sm'>".$iconGear."</a>
+                    <a href='{$deleteUrl}' class='btn btn-danger btn-sm'>".$iconTrash."</a>";
                     return $btn;
                 })
                 

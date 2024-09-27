@@ -16,7 +16,7 @@ class DataUserController extends Controller
     public function add()
     {
         $title = 'Tambah User';
-        return view('admin.DataUser-add', compact('title'));
+        return view('admin.dataUser-add', compact('title'));
     }
 
     public function store(Request $request)

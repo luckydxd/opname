@@ -34,6 +34,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Fadhil
+    Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
 

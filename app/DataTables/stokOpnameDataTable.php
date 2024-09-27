@@ -22,7 +22,8 @@ class stokOpnameDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
                 $url = route('stok_barang_import', $row->id); // Ganti 'nama.route' dengan nama route yang sesuai
-                return "<a class='btn btn-sm btn-warning rounded-circle' href='{$url}'><i class='bi bi-gear'></i></a>";
+                $iconGear = GEAR_SVG;
+                return "<a class='btn btn-sm btn-warning rounded-circle' href='{$url}'>".$iconGear."</a>";
             })
             ->setRowId('id')
             ->addColumn('gudang_nama', function ($row) {
@@ -52,7 +53,7 @@ class stokOpnameDataTable extends DataTable
             ->selectStyleSingle()
             ->buttons([
 
-                Button::make('reset'),
+               
                 Button::make('reload'),
             ]);
     }

@@ -18,17 +18,23 @@ class stokOpnameDashboardDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
-    {
-        return (new EloquentDataTable($query))
-            ->addColumn('action', function ($row) {
-                $url = route('StokOpnameDetail', $row->id); // Ganti 'nama.route' dengan nama route yang sesuai
-                return "<a class='btn btn-sm btn-primary rounded-circle' href='{$url}'><i class='bi bi-eye'></i></a>";
-            })
-            ->setRowId('id')
-            ->addColumn('gudang_nama', function ($row) {
-                return $row->gudang ? $row->gudang->nama : '-';
-            });
-    }
+{
+    return (new EloquentDataTable($query))
+        ->addColumn('action', function ($row) {
+            $url = route('StokOpnameDetail', $row->id);
+            $icon = EYE_SVG;
+
+            return "<a class='btn btn-sm btn-primary rounded-circle' href='" . e($url) . "'>$icon</a>";
+        })
+        ->setRowId('id')
+        ->addColumn('gudang_nama', function ($row) {
+            return optional($row->gudang)->nama ?? '-'; // Menggunakan optional untuk menghindari error
+        });
+}
+
+    
+
+    
 
     /**
      * Get the query source of dataTable.
@@ -51,8 +57,7 @@ class stokOpnameDashboardDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-
-                Button::make('reset'),
+                
                 Button::make('reload'),
             ]);
     }

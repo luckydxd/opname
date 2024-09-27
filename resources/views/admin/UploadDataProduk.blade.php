@@ -78,6 +78,7 @@ document.getElementById('customFile').addEventListener('change', function(event)
             .then(result => {
                 if (result.message) {
                     alert(result.message);
+                    window.location.replace(`{{route ('data_produk') }}`)
                 }
             })
             .catch(error => console.error('Error:', error));
