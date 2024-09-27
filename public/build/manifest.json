@@ -3,14 +3,6 @@
     "file": "assets/axios-BimPEqV4.js",
     "name": "axios"
   },
-  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
-    "file": "assets/bootstrap-icons-BOrJxbIo.woff",
-    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
-  },
-  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
-    "file": "assets/bootstrap-icons-BtvjY1KL.woff2",
-    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
-  },
   "resources/js/app.js": {
     "file": "assets/app-BltuYsOu.js",
     "name": "app",
@@ -30,7 +22,7 @@
     ]
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-Dn5G1I2M.css",
+    "file": "assets/app-CQ4eJ7mA.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }
