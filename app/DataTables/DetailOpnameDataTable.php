@@ -78,7 +78,7 @@ class DetailOpnameDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('reset'),
+              
                 Button::make('reload'),
             ]);
     }

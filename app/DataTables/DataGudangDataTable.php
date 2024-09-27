@@ -10,6 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
+
 class DataGudangDataTable extends DataTable
 {
     /**
@@ -24,8 +25,10 @@ class DataGudangDataTable extends DataTable
                 // Tombol untuk mengedit data Gudang
                 $editUrl = route('data_gudang_edit', $row->id); // Sesuaikan dengan route edit gudang
                 $deleteUrl = route('data_gudang_delete', $row->id);
-                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>
-                <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2'><i class='bi bi-trash'></i></a>";
+                $iconGear = GEAR_SVG;
+                $iconTrash = TRASH_SVG;
+                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'>".$iconGear."</a>
+                <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2'>".$iconTrash."</a>";
             })
 
             ->setRowId('id')
@@ -48,6 +51,7 @@ class DataGudangDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+        $iconPlus = PLUS_SVG;
         return $this->builder()
             ->setTableId('gudang-table') // ID tabel HTML
             ->columns($this->getColumns())
@@ -55,10 +59,10 @@ class DataGudangDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('reset'),
+                
                 Button::make('reload'),
                 Button::make('add')
-                    ->text('<i class="bi bi-plus"></i> Add Gudang') // Teks dan ikon tombol
+                    ->text($iconPlus.' Add Gudang') // Teks dan ikon tombol
                     ->action('function(){ window.location.href = "' . route('data_gudang_add') . '"; }') // Aksi tombol untuk redirect
                     ->addClass('btn btn-success'), // Kelas CSS untuk styling
             ]);
