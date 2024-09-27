@@ -29,7 +29,6 @@ class StokBarangController extends Controller
      */
     public function importFromFrontend(Request $request)
     {
-
         // Validasi data request
         $validator = Validator::make($request->all(), [
             'data' => 'required|array',
@@ -67,7 +66,6 @@ class StokBarangController extends Controller
                         'kuantitas' => $row['Kuantitas']
                     ]
                 );
-                dd($p);
             }
 
             return response()->json(['message' => 'Data stok berhasil diimpor!'], 200);
