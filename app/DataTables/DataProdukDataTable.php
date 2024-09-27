@@ -61,7 +61,7 @@ class DataProdukDataTable extends DataTable
                 Button::make('reset'),
                 Button::make('reload'),
                 Button::make('') // Tambahkan tombol custom 'Add'
-                    ->text('<i class="bi bi-file-earmark-spreadsheet"></i>') // Teks dan ikon tombol
+                    ->text('<i class="bi bi-file-earmark-spreadsheet"></i>Add Produk') // Teks dan ikon tombol
                     ->action('function(){ window.location.href = "' . route('uploadForm_produk') . '"; }')//aksi
                     ->addClass('btn btn-success'), // Kelas CSS untuk styling
             ]);
