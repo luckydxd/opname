@@ -67,6 +67,48 @@ class ProdukController extends Controller
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
+    public function delete($id){
+        $produk = Produk::find($id);
+        if($produk){
+            $produk->delete();
+            return redirect()->route('data_produk')->with('success', 'Data berhasil dihapus');
+        }else {
+            return redirect()->route('data_produk')->with('error', 'Data tidak ditemukan');
+        }
+    }
+    public function edit($id){
+        $title = 'Data produk';
+        $produk = Produk::find($id);
+        return view('admin.DataProduk-edit', compact('title', 'produk'));
+    }
+   
+    public function update(Request $request)
+{
+    // Validasi input
+    
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'kode' => 'required|string|max:50',
+        'id' => 'required|integer', 
+    ]);
+
+    // Ambil model berdasarkan ID yang diterima
+    $produk = Produk::find($request->id);
+
+    if ($produk) {
+        // Update data produk
+        $produk->nama = $request->nama;
+        $produk->kode = $request->kode; // Update kolom kode
+        $produk->save();
+        
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('data_produk')->with('success', 'Data berhasil diupdate');
+    } else {
+        // Jika tidak ditemukan, bisa mengarahkan kembali dengan pesan error
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
+    }
+}
 
    
  
