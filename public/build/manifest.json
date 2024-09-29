@@ -1,0 +1,29 @@
+{
+  "_axios-BimPEqV4.js": {
+    "file": "assets/axios-BimPEqV4.js",
+    "name": "axios"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-BltuYsOu.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_axios-BimPEqV4.js"
+    ]
+  },
+  "resources/js/importExcel.js": {
+    "file": "assets/importExcel-DM6e1-wK.js",
+    "name": "importExcel",
+    "src": "resources/js/importExcel.js",
+    "isEntry": true,
+    "imports": [
+      "_axios-BimPEqV4.js"
+    ]
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-CQ4eJ7mA.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  }
+}

@@ -18,8 +18,10 @@ class DataUserDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $editUrl = route('data_user_edit', $row->id);
                 $deleteUrl = route('data_user_delete', $row->id);
-                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'><i class='bi bi-gear'></i></a>
-                <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2' onclick='event.preventDefault(); document.getElementById(\"delete-form-{$row->id}\").submit();'><i class='bi bi-trash'></i></a>
+                $iconGear = GEAR_SVG;
+                $iconTrash = TRASH_SVG;
+                return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'>".$iconGear."</a>
+                <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2' onclick='event.preventDefault(); document.getElementById(\"delete-form-{$row->id}\").submit();'>".$iconTrash."</a>
                 <form id='delete-form-{$row->id}' action='{$deleteUrl}' method='POST' style='display: none;'>".csrf_field().method_field('DELETE')."</form>";
             })
             ->setRowId('id')
@@ -38,6 +40,7 @@ class DataUserDataTable extends DataTable
 
     public function html(): HtmlBuilder
     {
+        $iconPlus = PLUS_SVG;
         return $this->builder()
             ->setTableId('user-table')
             ->columns($this->getColumns())
@@ -45,10 +48,10 @@ class DataUserDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('reset'),
+                
                 Button::make('reload'),
                 Button::make('add')
-                    ->text('<i class="bi bi-plus"></i> Add User')
+                    ->text($iconPlus.' Add User')
                     ->action('function(){ window.location.href = "' . route('data_user_add') . '"; }')
                     ->addClass('btn btn-success'),
             ]);

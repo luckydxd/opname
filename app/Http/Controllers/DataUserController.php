@@ -10,7 +10,7 @@ class DataUserController extends Controller
     public function index(DataUserDataTable $dataTable)
     {
         $title = 'Data User';
-        return $dataTable->render('admin.dataUser', compact('title'));
+        return $dataTable->render('admin.DataUser', compact('title'));
     }
 
     public function add()
@@ -40,7 +40,7 @@ class DataUserController extends Controller
     {
         $title = 'Edit User';
         $user = User::findOrFail($id);
-        return view('admin.dataUser-edit', compact('title', 'user'));
+        return view('admin.DataUser-edit', compact('title', 'user'));
     }
 
     public function update(Request $request)

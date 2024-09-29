@@ -12,6 +12,12 @@
     <link href="{{ asset('demo5/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('demo5/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+
+ 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('css')
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -77,12 +83,14 @@
 
     @stack('scripts')
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="{{ asset('demo5/assets/js/libs/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('demo5/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('demo5/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('demo5/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('demo5/assets/js/app.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             App.init();

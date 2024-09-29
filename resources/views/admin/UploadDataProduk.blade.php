@@ -76,10 +76,12 @@ document.getElementById('customFile').addEventListener('change', function(event)
             })
             .then(response => response.json())
             .then(result => {
-                if (result.message) {
-                    alert(result.message);
-                }
-            })
+    if (result.message) {
+        alert(result.message + (result.duplicates ? '\n' + result.duplicates.join('\n') : ''));
+        window.location.replace(`{{route ('data_produk') }}`);
+    }
+})
+
             .catch(error => console.error('Error:', error));
         };
 

@@ -19,23 +19,28 @@ class DataProdukDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query));
+        return (new EloquentDataTable($query))
         
-            // ->addColumn('action', function ($row) {
-            //     return '<a href="' . route('produk.edit', $row->id) . '" class="btn btn-sm btn-primary">Edit</a>
-            //             <a href="' . route('produk.destroy', $row->id) . '" class="btn btn-sm btn-danger">Delete</a>';
-            // })
+        ->addColumn('action', function ($row) {
+            // Tombol untuk mengedit data Gudang
+            $editUrl = route('data_produk_edit', $row->id); // Sesuaikan dengan route edit produk
+            $deleteUrl = route('data_produk_delete', $row->id);
+            $iconGear = GEAR_SVG;
+            $iconTrash = TRASH_SVG;
+            return "<a href='{$editUrl}' class='btn btn-sm btn-warning rounded-circle'>".$iconGear."</a>
+            <a href='{$deleteUrl}' class='btn btn-sm btn-danger rounded-circle my-2'>".$iconTrash."</a>";
+        })
             
-            // ->setRowId('id');
-            // ->addColumn('nama', function ($row) {
-            //     return $row->nama;
-            // });
-            // ->addColumn('kode', function ($row) {
-            //     return $row->kode;
-            // });
-            // ->addColumn('kuantitas', function ($row) {
-            //     return $row->kuanitas ?? 'N/A'; // Menambahkan data default jika tidak tersedia
-            // });
+            ->setRowId('id')
+            ->addColumn('nama', function ($row) {
+                return $row->nama;
+            })
+            ->addColumn('kode', function ($row) {
+                return $row->kode;
+            })
+            ->addColumn('kuantitas', function ($row) {
+                return $row->kuanitas ?? 'N/A'; // Menambahkan data default jika tidak tersedia
+            });
     }
 
     /**
@@ -51,6 +56,7 @@ class DataProdukDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+        $iconPlus = PLUS_SVG;
         return $this->builder()
             ->setTableId('dataproduk-table')
             ->columns($this->getColumns())
@@ -58,10 +64,13 @@ class DataProdukDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('reset'),
+                
                 Button::make('reload'),
                 Button::make('') // Tambahkan tombol custom 'Add'
-                    ->text('<i class="bi bi-file-earmark-spreadsheet"></i>') // Teks dan ikon tombol
+
+                   
+                ->text($iconPlus.' Add Produk')
+
                     ->action('function(){ window.location.href = "' . route('uploadForm_produk') . '"; }')//aksi
                     ->addClass('btn btn-success'), // Kelas CSS untuk styling
             ]);
@@ -76,13 +85,13 @@ class DataProdukDataTable extends DataTable
 
             // Column::make('id'),
             Column::make('nama'),
-            Column::make('kode')
-            // Column::make ('kuantitas')
-            // Column::computed('action')
+            Column::make('kode'),
+            Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-center')
+                ->title('Aksi'),
         ];
     }
 

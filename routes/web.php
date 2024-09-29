@@ -34,6 +34,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Fadhil
+    Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
 
@@ -53,8 +54,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     //Legi
     Route::get('/admin/data-produk/', [ProdukController::class, 'index'])->name('data_produk');
-
     Route::get('/produk/upload', [ProdukController::class, 'importData'])->name('uploadForm_produk');
+    Route::get('/admin/dataproduk-edit/{id}', [ProdukController::class, 'edit'])->name('data_produk_edit');
+    Route::get('/admin/dataproduk-hapus/{id}', [ProdukController::class, 'delete'])->name('data_produk_delete');
+    Route::post('/admin/dataproduk-update/{id}', [ProdukController::class, 'update'])->name('data_produk_update');
     // Route::post('/produk/uploadd', [ProdukController::class, 'upload'])->name('upload_produk');
     Route::post('/unggah/produk', [ProdukController::class, 'unggahProduk'])->name('unggah_produk');
 
