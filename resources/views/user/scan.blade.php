@@ -66,7 +66,7 @@
                             <div class="form-group mb-4">
                                 <label for="codeSelect">Code</label>
                                 <div class="input-group">
-                                    <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required readonly>
+                                    <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">
                                             <!-- SVG Icon -->
@@ -79,7 +79,7 @@
                             </div>
                                   <div class="form-group mb-4">
                                       <label for="produkSelect">Produk</label>
-                                      <select class="form-control basic" id="produkSelect" name="kode_produk" required readonly>
+                                      <select class="form-control basic" id="produkSelect" name="kode_produk" required>
                                           <option value="">-- Nama Produk --</option>
                                           @foreach ($produks as $produk)
                                               <option value="{{ $produk->kode }}" data-kode="{{ $produk->kode }}">{{ $produk->nama }}</option>
