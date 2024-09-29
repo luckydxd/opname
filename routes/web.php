@@ -94,7 +94,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-Route::get('user/datatables', [DashboardController::class, 'datatable'])->name('user.datatable');
+Route::get('user/datatables', [DashboardController::class, 'datatable'])->middleware('auth')->name('user.datatable');
 Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
 Route::get('/user/opname_add', [DashboardController::class, 'create'])->name('user.addopname');
 Route::post('/user/opname_add', [DashboardController::class, 'store'])->name('user.storeopname');
