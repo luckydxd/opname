@@ -52,6 +52,7 @@ class DashboardController extends Controller
             'nomor_dokumen' => $request->nomor_dokumen,
             'id_gudang' => $request->id_gudang,
             'tanggal_opname' => $request->tanggal_opname,
+            'user_id' => auth()->id(),
         ]);
     
         return redirect()->route('dashboard_user')->with('success', 'Data stok opname berhasil ditambahkan');
