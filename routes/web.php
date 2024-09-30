@@ -11,6 +11,8 @@ use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ScanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\DataTables\DetailOpnameDataTable;
+
 
 
 /*
@@ -37,7 +39,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
-
+    Route::get('/export-excel/{id}', function ($id) {
+        $dataTable = new DetailOpnameDataTable($id);
+        return $dataTable->exportToExcel();
+    });
 
 
     //end Fadhil
