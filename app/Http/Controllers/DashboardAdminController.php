@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\DataTables\stokOpnameDashboardDataTable;
 use App\DataTables\DetailOpnameDataTable; // Tambahkan ini untuk detailOpname
 use App\Models\StokOpname; // Model yang digunakan
+use App\Models\DetailOpname; // Model yang digunakan
 // use APP\DataTables\stokOpnameDataTable;
 
 class DashboardAdminController extends Controller
@@ -17,7 +18,6 @@ class DashboardAdminController extends Controller
     }
 
     public function datatable(Request $request)
-
     {
         $data = StokOpname::with('gudang')->select('stok_opnames.*');
         return DataTables::of($data)->make(true);
@@ -38,5 +38,11 @@ class DashboardAdminController extends Controller
         $dataTable = new DetailOpnameDataTable($id);
 
         return $dataTable->render('admin.DetailProduk', compact('stokOpname', 'title'));
+    }
+
+    public function exportData($id){
+       $detailOpname = DetailOpname::where('id_stok_opname', $id)->get();
+
+        return response()->json($detailOpname, 200, $headers);
     }
 }

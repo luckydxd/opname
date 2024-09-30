@@ -37,6 +37,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+    Route::get('/admin/stok-barang/export/{id}', [DashboardAdminController::class, 'exportData'])->name('exportData');
 
 
 
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/stok-barang/', [StokBarangController::class, 'index'])->name('stok_barang');
     Route::get('/admin/stok-barang/import/{id}', [StokBarangController::class, 'importData'])->name('stok_barang_import');
+ 
     Route::post('/admin/stok_barang/import-frontend', [StokBarangController::class, 'importFromFrontend'])->name('stok_barang_import_frontend');
     Route::get('/admin/stok_barang/get-stok-barangs', [StokBarangController::class, 'getStokBarangs'])->name('stok-barangs-get');
     Route::get('/admin/stok_barang/edit-stok-barang/{id}', [StokBarangController::class, 'edit'])->name('edit-barang');

@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\DetailStokOpname;
 use App\Models\StokBarang;
+use App\Models\Produk;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -24,16 +25,10 @@ class DetailOpnameDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($row) {
-                $settingsUrl = "";
-
-                return "
-                    <a class='btn btn-sm btn-warning rounded-circle' href='{$settingsUrl}' title='Pengaturan'>
-                        <i class='bi bi-gear'></i>
-                    </a>
-                ";
-            })
-            ->setRowId('id');
+        ->addColumn('produk.nama', function ($row) {
+            return $row->produk ? $row->produk->nama : ''; // Tampilkan nama produk atau kosong jika tidak ada
+        })
+        ->setRowId('id');
     }
 
     public function query(DetailStokOpname $model): QueryBuilder
@@ -65,8 +60,11 @@ class DetailOpnameDataTable extends DataTable
             $detail->save();
         }
 
-        // Kembalikan query setelah diperbarui
-        return $model->newQuery()->where('id_stok_opname', $this->idStokOpname);
+         // Ambil data detail opname terkait berdasarkan id_stok_opname
+        return $model->newQuery()
+            ->where('id_stok_opname', $this->idStokOpname)
+            ->with('produk') // Memuat data relasi produk
+            ->select('detail_stok_opnames.*'); // Pastikan untuk memilih kolom dari tabel `detail_stok_opnames`
     }
 
     public function html(): HtmlBuilder
@@ -80,6 +78,7 @@ class DetailOpnameDataTable extends DataTable
             ->buttons([
               
                 Button::make('reload'),
+                
             ]);
     }
 
@@ -88,15 +87,12 @@ class DetailOpnameDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('kode_produk')->title('Kode Produk'), // Gantilah dengan kolom yang benar
+            Column::computed('produk.nama')->title('Nama Produk'),
             Column::make('kuantitas')->title('Kuantitas'),
             Column::make('fisik_all')->title('Fisik All'),
             Column::make('selisih')->title('Selisih'),
             Column::make('keterangan')->title('Keterangan'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+            
         ];
     }
 
