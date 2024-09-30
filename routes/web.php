@@ -39,15 +39,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
-<<<<<<< HEAD
-    Route::get('/admin/stok-barang/export/{id}', [DashboardAdminController::class, 'exportData'])->name('exportData');
-
-=======
     Route::get('/export-excel/{id}', function ($id) {
         $dataTable = new DetailOpnameDataTable($id);
         return $dataTable->exportToExcel();
     });
->>>>>>> b5c5a9661941664e01496aa76b8f632e5cfcc349
 
 
     //end Fadhil
