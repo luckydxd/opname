@@ -13,8 +13,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        
-        return view('user.dashboard');
+        $user = auth()->user();
+
+        // Mengirim data user ke view
+        return view('user.dashboard', compact('user'));
     }
 
     public function datatable(Request $request)

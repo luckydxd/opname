@@ -9,18 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-    {
-        Schema::table('stok_opnames', function (Blueprint $table) {
+public function up()
+{
+    Schema::table('stok_opnames', function (Blueprint $table) {
+        if (!Schema::hasColumn('stok_opnames', 'user_id')) {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-        });
-    }
-    
-    public function down()
-    {
-        Schema::table('stok_opnames', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
-    }
+        }
+    });
+}
+
+public function down()
+{
+    Schema::table('stok_opnames', function (Blueprint $table) {
+        $table->dropForeign(['user_id']);
+        $table->dropColumn('user_id');
+    });
+}
+
 };
