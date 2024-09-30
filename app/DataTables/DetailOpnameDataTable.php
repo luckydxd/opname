@@ -10,6 +10,8 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class DetailOpnameDataTable extends DataTable
 {
@@ -78,8 +80,8 @@ class DetailOpnameDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-              
                 Button::make('reload'),
+                Button::make('excel')->text('Export to Excel')->action('function() { window.location.href = "/export-excel/' . $this->idStokOpname . '"; }')
             ]);
     }
 
@@ -98,6 +100,45 @@ class DetailOpnameDataTable extends DataTable
                 ->width(60)
                 ->addClass('text-center'),
         ];
+    }
+
+    public function exportToExcel()
+    {
+        $details = DetailStokOpname::where('id_stok_opname', $this->idStokOpname)->get();
+
+        // Membuat spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Kode Produk');
+        $sheet->setCellValue('C1', 'Kuantitas');
+        $sheet->setCellValue('D1', 'Fisik All');
+        $sheet->setCellValue('E1', 'Selisih');
+        $sheet->setCellValue('F1', 'Keterangan');
+
+        $row = 2; // Baris mulai untuk data
+        foreach ($details as $detail) {
+            $sheet->setCellValue('A' . $row, $detail->id);
+            $sheet->setCellValue('B' . $row, $detail->kode_produk);
+            $sheet->setCellValue('C' . $row, $detail->kuantitas);
+            $sheet->setCellValue('D' . $row, $detail->fisik_all);
+            $sheet->setCellValue('E' . $row, $detail->selisih);
+            $sheet->setCellValue('F' . $row, $detail->keterangan);
+            $row++;
+        }
+
+        // Menyimpan file Excel
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Detail_Opname_' . date('Y-m-d') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit;
     }
 
     protected function filename(): string
