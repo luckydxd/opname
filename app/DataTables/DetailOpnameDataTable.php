@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\DetailStokOpname;
 use App\Models\StokBarang;
+use App\Models\Produk;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -26,16 +27,10 @@ class DetailOpnameDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($row) {
-                $settingsUrl = "";
-
-                return "
-                    <a class='btn btn-sm btn-warning rounded-circle' href='{$settingsUrl}' title='Pengaturan'>
-                        <i class='bi bi-gear'></i>
-                    </a>
-                ";
-            })
-            ->setRowId('id');
+        ->addColumn('produk.nama', function ($row) {
+            return $row->produk ? $row->produk->nama : ''; // Tampilkan nama produk atau kosong jika tidak ada
+        })
+        ->setRowId('id');
     }
 
     public function query(DetailStokOpname $model): QueryBuilder
@@ -68,7 +63,11 @@ class DetailOpnameDataTable extends DataTable
         }
 
         // Kembalikan query setelah diperbarui
-        return $model->newQuery()->where('id_stok_opname', $this->idStokOpname);
+        // Ambil data detail opname terkait berdasarkan id_stok_opname
+        return $model->newQuery()
+            ->where('id_stok_opname', $this->idStokOpname)
+            ->with('produk') // Memuat data relasi produk
+            ->select('detail_stok_opnames.*'); // Pastikan untuk memilih kolom dari tabel detail_stok_opnames
     }
 
     public function html(): HtmlBuilder
@@ -90,21 +89,18 @@ class DetailOpnameDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('kode_produk')->title('Kode Produk'), // Gantilah dengan kolom yang benar
+            Column::computed('produk.nama')->title('Nama Produk'),
             Column::make('kuantitas')->title('Kuantitas'),
             Column::make('fisik_all')->title('Fisik All'),
             Column::make('selisih')->title('Selisih'),
             Column::make('keterangan')->title('Keterangan'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+            
         ];
     }
 
     public function exportToExcel()
     {
-        $details = DetailStokOpname::where('id_stok_opname', $this->idStokOpname)->get();
+        $details = DetailStokOpname::with('produk')->where('id_stok_opname', $this->idStokOpname)->get();
 
         // Membuat spreadsheet baru
         $spreadsheet = new Spreadsheet();
@@ -113,20 +109,22 @@ class DetailOpnameDataTable extends DataTable
         // Mengatur header kolom
         $sheet->setCellValue('A1', 'ID');
         $sheet->setCellValue('B1', 'Kode Produk');
-        $sheet->setCellValue('C1', 'Kuantitas');
-        $sheet->setCellValue('D1', 'Fisik All');
-        $sheet->setCellValue('E1', 'Selisih');
-        $sheet->setCellValue('F1', 'Keterangan');
+        $sheet->setCellValue('C1', 'Nama Produk'); // Header untuk nama produk
+        $sheet->setCellValue('D1', 'Kuantitas');
+        $sheet->setCellValue('E1', 'Fisik All');
+        $sheet->setCellValue('F1', 'Selisih');
+        $sheet->setCellValue('G1', 'Keterangan');
 
         $row = 2; // Baris mulai untuk data
         foreach ($details as $detail) {
-            $sheet->setCellValue('A' . $row, $detail->id);
-            $sheet->setCellValue('B' . $row, $detail->kode_produk);
-            $sheet->setCellValue('C' . $row, $detail->kuantitas);
-            $sheet->setCellValue('D' . $row, $detail->fisik_all);
-            $sheet->setCellValue('E' . $row, $detail->selisih);
-            $sheet->setCellValue('F' . $row, $detail->keterangan);
-            $row++;
+        $sheet->setCellValue('A' . $row, $detail->id);
+        $sheet->setCellValue('B' . $row, $detail->kode_produk);
+        $sheet->setCellValue('C' . $row, $detail->produk ? $detail->produk->nama : ''); // Menampilkan nama produk
+        $sheet->setCellValue('D' . $row, $detail->kuantitas);
+        $sheet->setCellValue('E' . $row, $detail->fisik_all);
+        $sheet->setCellValue('F' . $row, $detail->selisih);
+        $sheet->setCellValue('G' . $row, $detail->keterangan);
+        $row++;
         }
 
         // Menyimpan file Excel

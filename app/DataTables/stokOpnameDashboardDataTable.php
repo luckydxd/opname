@@ -22,10 +22,12 @@ class stokOpnameDashboardDataTable extends DataTable
     return (new EloquentDataTable($query))
         ->addColumn('action', function ($row) {
             $url = route('StokOpnameDetail', $row->id);
+           
             $icon = EYE_SVG;
-
-            return "<a class='btn btn-sm btn-primary rounded-circle' href='" . e($url) . "'>$icon</a>";
+            $icon2 = EXPORT_SVG;
+            return "<a class='btn btn-sm btn-primary rounded-circle my-2' href='" . e($url) . "'>$icon</a>";
         })
+
         ->setRowId('id')
         ->addColumn('gudang_nama', function ($row) {
             return optional($row->gudang)->nama ?? '-'; // Menggunakan optional untuk menghindari error

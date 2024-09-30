@@ -33,8 +33,11 @@ function handleFile(event) {
             id_stok_opname: document.querySelector('input[name="id_stok_opname"]').value
         })
         .then(response => {
+            const id = document.querySelector('input[name="id_stok_opname"]').value;
             alert(response.data.message);
+            window.location.replace(`/admin/stok-barang/import/${id}#uploadForm`);
         })
+        
         .catch(error => {
             console.error(error);
             alert('Terjadi kesalahan saat mengimpor data.');
