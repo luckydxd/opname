@@ -64,7 +64,7 @@ class ProdukController extends Controller
 
     //         return response()->json(['message' => 'Produk berhasil diunggah!'], 200);
     //     } catch (\Exception $e) {
-    //         return response()->json(['message' => 'Beberapa produk gagal diunggah karena kode yang sama ditemukan '], 500);
+    //         return response()->json(['message' => 'Beberapa Produk Sudah tersimpan Sebelumnya'], 500);
     //     }
     // }
 
@@ -119,7 +119,7 @@ class ProdukController extends Controller
     
             // Cek jika ada kode atau nama yang duplikat
             if (!empty($duplicateMessages)) {
-                return response()->json(['message' => 'Beberapa produk gagal diunggah:', 'duplicates' => $duplicateMessages], 400);
+                return response()->json(['message' => 'Beberapa Produk Sudah Tersimpan Sebelumnya:', 'duplicates' => $duplicateMessages], 400);
             }
     
             return response()->json(['message' => 'Produk berhasil diunggah!'], 200);
