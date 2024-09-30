@@ -13,19 +13,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        
-        return view('user.dashboard');
+        $user = auth()->user();
+
+        // Mengirim data user ke view
+        return view('user.dashboard', compact('user'));
     }
 
     public function datatable(Request $request)
 
     {
-        $data = StokOpname::with('gudang')->select('stok_opnames.*');
+        $user = auth()->user(); 
+        $data = StokOpname::with('gudang')->where('user_id', $user->id)->select('stok_opnames.*');
         return DataTables::of($data)->make(true);
     }
 
     public function create()
     {
+        $user = auth()->user();
         $gudangs = Gudang::all();
 
         $currentYear = date('y');
@@ -36,7 +40,7 @@ class DashboardController extends Controller
         // Auto Generate nomor dokumen dengan format SOP/{Bulan}/{Urutan}
         $nomorDokumen = 'SOP/' . $currentYear .'/'. $currentMonth . '/' . $nextOrder;
     
-        return view('user.addopname', compact('gudangs','nomorDokumen'));
+        return view('user.addopname', compact('gudangs','nomorDokumen','user'));
     }
 
     public function store(Request $request)
@@ -51,6 +55,7 @@ class DashboardController extends Controller
             'nomor_dokumen' => $request->nomor_dokumen,
             'id_gudang' => $request->id_gudang,
             'tanggal_opname' => $request->tanggal_opname,
+            'user_id' => auth()->id(),
         ]);
     
         return redirect()->route('dashboard_user')->with('success', 'Data stok opname berhasil ditambahkan');

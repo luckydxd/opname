@@ -11,6 +11,8 @@ use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ScanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\DataTables\DetailOpnameDataTable;
+
 
 
 /*
@@ -37,8 +39,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/dashboard-datatable', [DashboardAdminController::class, 'datatable'])->name('admin.datatable');
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard_admin');
     Route::get('/admin/detail-opname/{id}', [DashboardAdminController::class, 'show'])->name('StokOpnameDetail');
+<<<<<<< HEAD
     Route::get('/admin/stok-barang/export/{id}', [DashboardAdminController::class, 'exportData'])->name('exportData');
 
+=======
+    Route::get('/export-excel/{id}', function ($id) {
+        $dataTable = new DetailOpnameDataTable($id);
+        return $dataTable->exportToExcel();
+    });
+>>>>>>> b5c5a9661941664e01496aa76b8f632e5cfcc349
 
 
     //end Fadhil
@@ -99,7 +108,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-Route::get('user/datatables', [DashboardController::class, 'datatable'])->name('user.datatable');
+Route::get('user/datatables', [DashboardController::class, 'datatable'])->middleware('auth')->name('user.datatable');
 Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('dashboard_user');
 Route::get('/user/opname_add', [DashboardController::class, 'create'])->name('user.addopname');
 Route::post('/user/opname_add', [DashboardController::class, 'store'])->name('user.storeopname');

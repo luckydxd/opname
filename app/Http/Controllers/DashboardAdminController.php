@@ -37,7 +37,7 @@ class DashboardAdminController extends Controller
         // Buat instance dari DataTable dan masukkan id_stok_opname
         $dataTable = new DetailOpnameDataTable($id);
 
-        return $dataTable->render('admin.DetailProduk', compact('stokOpname', 'title'));
+        return $dataTable->render('admin.DetailOpname', compact('stokOpname', 'title'));
     }
 
     public function exportData($id){

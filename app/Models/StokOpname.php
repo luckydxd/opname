@@ -10,7 +10,7 @@ class StokOpname extends Model
     use HasFactory;
     protected $table = 'stok_opnames';
 
-    protected $fillable = ['nomor_dokumen', 'id_gudang', 'tanggal_opname'];
+    protected $fillable = ['nomor_dokumen', 'id_gudang', 'tanggal_opname','user_id',];
 
     public function gudang()
     {
@@ -27,5 +27,10 @@ class StokOpname extends Model
         return $this->hasMany(DetailStokOpname::class, 'id_stok_opname');
     }
    
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+
     
 }

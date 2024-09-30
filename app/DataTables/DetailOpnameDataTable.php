@@ -11,6 +11,8 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class DetailOpnameDataTable extends DataTable
 {
@@ -60,11 +62,12 @@ class DetailOpnameDataTable extends DataTable
             $detail->save();
         }
 
-         // Ambil data detail opname terkait berdasarkan id_stok_opname
+        // Kembalikan query setelah diperbarui
+        // Ambil data detail opname terkait berdasarkan id_stok_opname
         return $model->newQuery()
             ->where('id_stok_opname', $this->idStokOpname)
             ->with('produk') // Memuat data relasi produk
-            ->select('detail_stok_opnames.*'); // Pastikan untuk memilih kolom dari tabel `detail_stok_opnames`
+            ->select('detail_stok_opnames.*'); // Pastikan untuk memilih kolom dari tabel detail_stok_opnames
     }
 
     public function html(): HtmlBuilder
@@ -76,9 +79,8 @@ class DetailOpnameDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-              
                 Button::make('reload'),
-                
+                Button::make('excel')->text('Export to Excel')->action('function() { window.location.href = "/export-excel/' . $this->idStokOpname . '"; }')
             ]);
     }
 
@@ -94,6 +96,47 @@ class DetailOpnameDataTable extends DataTable
             Column::make('keterangan')->title('Keterangan'),
             
         ];
+    }
+
+    public function exportToExcel()
+    {
+        $details = DetailStokOpname::with('produk')->where('id_stok_opname', $this->idStokOpname)->get();
+
+        // Membuat spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Kode Produk');
+        $sheet->setCellValue('C1', 'Nama Produk'); // Header untuk nama produk
+        $sheet->setCellValue('D1', 'Kuantitas');
+        $sheet->setCellValue('E1', 'Fisik All');
+        $sheet->setCellValue('F1', 'Selisih');
+        $sheet->setCellValue('G1', 'Keterangan');
+
+        $row = 2; // Baris mulai untuk data
+        foreach ($details as $detail) {
+        $sheet->setCellValue('A' . $row, $detail->id);
+        $sheet->setCellValue('B' . $row, $detail->kode_produk);
+        $sheet->setCellValue('C' . $row, $detail->produk ? $detail->produk->nama : ''); // Menampilkan nama produk
+        $sheet->setCellValue('D' . $row, $detail->kuantitas);
+        $sheet->setCellValue('E' . $row, $detail->fisik_all);
+        $sheet->setCellValue('F' . $row, $detail->selisih);
+        $sheet->setCellValue('G' . $row, $detail->keterangan);
+        $row++;
+        }
+
+        // Menyimpan file Excel
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Detail_Opname_' . date('Y-m-d') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit;
     }
 
     protected function filename(): string
