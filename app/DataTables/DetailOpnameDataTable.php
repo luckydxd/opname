@@ -60,7 +60,7 @@ class DetailOpnameDataTable extends DataTable
             $detail->selisih = $detail->kuantitas - $detail->fisik_all;
 
             // Set keterangan berdasarkan nilai selisih
-            $detail->keterangan = $detail->selisih < 0 ? 'tidak balance' : 'balance';
+            $detail->keterangan = $detail->selisih != 0 ? 'tidak balance' : 'balance';
 
             // Simpan perubahan
             $detail->save();
@@ -79,7 +79,7 @@ class DetailOpnameDataTable extends DataTable
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('reset'),
+              
                 Button::make('reload'),
             ]);
     }

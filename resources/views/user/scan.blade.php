@@ -24,28 +24,28 @@
                     <div class="col-xl-5 col-lg-6 col-md-6 mb-4">
                         <div class="card b-l-card-1 h-100" style="-webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);-moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07); box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);">
                             <div class="card-body">
-                            <section class="container" id="demo-content">
-     
-     <div>
-       <a class="button btn btn-outline-primary mb-3" id="startButton">Start</a>
-       <a class="button btn btn-outline-danger mb-3" id="resetButton">Reset</a>
-     </div>
+                            <section class="container" id="scan-content">
+                            
+                            <div>
+                            <a class="button btn btn-outline-primary mb-3" id="startButton">Start</a>
+                            <a class="button btn btn-outline-danger mb-3" id="resetButton">Reset</a>
+                            </div>
 
-     <div>
-       <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
-     </div>
+                            <div>
+                            <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+                            </div>
 
-     <div id="sourceSelectPanel" style="display:none">
-       <label for="sourceSelect">Change video source:</label>
-       <select  class="form-control  basic" id="sourceSelect" style="max-width:400px">
-       </select>
-     </div>
+                            <div id="sourceSelectPanel" style="display:none">
+                            <label for="sourceSelect">Change video source:</label>
+                            <select class="form-control  basic" id="sourceSelect" style="max-width:400px">
+                            </select>
+                            </div>
 
-     <label class="mt-3">Hasil:</label>
-     <pre><code id="result"></code></pre>
+                            <label class="mt-3">Hasil:</label>
+                            <pre><code id="result"></code></pre>
 
-     
-   </section>
+                            
+                        </section>
                             </div>
                         </div>
                     </div>
@@ -59,14 +59,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="widget-content widget-content-area" style="height: 400px;">
+                            <div class="widget-content widget-content-area" style="height: 410px;">
                             <form action="{{ route('user.storeqty', ['id' => $stokOpname->id]) }}" method="POST">
                             @csrf
                             <input type="hidden" name="id_stok_opname" value="{{ $stokOpname->id }}">
                             <div class="form-group mb-4">
                                 <label for="codeSelect">Code</label>
                                 <div class="input-group">
-                                    <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required readonly>
+                                    <input type="text" id="codeInput" class="form-control" aria-describedby="basic-addon2" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">
                                             <!-- SVG Icon -->
@@ -77,10 +77,10 @@
                                     </div>
                                 </div>
                             </div>
-                                  <div class="form-group mb-4">
+                                  <div class="form-group mb-1">
                                       <label for="produkSelect">Produk</label>
-                                      <select class="form-control basic" id="produkSelect" name="kode_produk" required readonly>
-                                          <option value="">-- Nama Produk --</option>
+                                      <select  class="placeholder js-states form-control" id="produkSelect" name="kode_produk" required>
+                                          <option value=""></option>
                                           @foreach ($produks as $produk)
                                               <option value="{{ $produk->kode }}" data-kode="{{ $produk->kode }}">{{ $produk->nama }}</option>
                                           @endforeach
@@ -132,6 +132,48 @@
 @endsection
 
 @push('script')
+
+<script>
+    //Script pada form select2
+var ss = $(".basic").select2({
+    tags: true,
+});
+
+$('#produkSelect').select2({
+    placeholder: "-- Nama Produk --",
+    allowClear: true
+});
+
+// Script untuk form kode dan produk agar dapat mengisi kode secara otomatis 
+    $('#codeInput').on('input', function() {
+        var inputKode = $(this).val().toLowerCase();
+        var produkSelect = $('#produkSelect');
+
+        var found = false;
+        produkSelect.find('option').each(function() {
+            var kodeProduk = $(this).val().toLowerCase();
+            if (kodeProduk.startsWith(inputKode)) {
+                produkSelect.val($(this).val()).trigger('change'); 
+                found = true;
+                return false;
+            }
+        });
+        if (!found) {
+            produkSelect.val('').trigger('change');
+        }
+    });
+
+    // Fungsi untuk mengisi kode berdasarkan produk yang dipilih
+    $('#produkSelect').on('select2:select', function(e) {
+        var kodeProduk = e.params.data.id; 
+        $('#codeInput').val(kodeProduk);
+    });
+
+    // Fungsi untuk menghapus kode ketika produk di-unselect
+    $('#produkSelect').on('select2:unselect', function() {
+        $('#codeInput').val(''); 
+    });
+</script>
 
 <script>
         $(document).ready(function() {
@@ -348,6 +390,9 @@
             .catch((err) => {
                 console.error(err);
             });
+            
     });
+
+    
 </script>
 @endpush

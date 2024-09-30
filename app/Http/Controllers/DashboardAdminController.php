@@ -16,6 +16,12 @@ class DashboardAdminController extends Controller
         return $dataTable->render('admin.Dashboard', compact('title'));
     }
 
+    public function datatable(Request $request)
+
+    {
+        $data = StokOpname::with('gudang')->select('stok_opnames.*');
+        return DataTables::of($data)->make(true);
+    }
     // Menampilkan detail Opname
     // public function show(DetailOpnameDataTable $dataTable, $id)
     // {

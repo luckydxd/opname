@@ -20,7 +20,8 @@ class DashboardController extends Controller
     public function datatable(Request $request)
 
     {
-        $data = StokOpname::with('gudang')->select('stok_opnames.*');
+        $user = auth()->user(); 
+        $data = StokOpname::with('gudang')->where('user_id', $user->id)->select('stok_opnames.*');
         return DataTables::of($data)->make(true);
     }
 
@@ -51,6 +52,7 @@ class DashboardController extends Controller
             'nomor_dokumen' => $request->nomor_dokumen,
             'id_gudang' => $request->id_gudang,
             'tanggal_opname' => $request->tanggal_opname,
+            'user_id' => auth()->id(),
         ]);
     
         return redirect()->route('dashboard_user')->with('success', 'Data stok opname berhasil ditambahkan');
