@@ -41,6 +41,7 @@ class StokBarangController extends Controller
 
         $data = $request->input('data');
         $id_stok_opname = $request->input('id_stok_opname');
+        $responseMessages = []; // Menyimpan pesan untuk setiap baris
 
         try {
             // Iterasi data dan simpan ke dalam database
@@ -52,30 +53,40 @@ class StokBarangController extends Controller
                     'Kuantitas' => 'required'
                 ]);
 
-
                 if ($rowValidator->fails()) {
+                    $responseMessages[] = "Baris dengan Kode " . $row['Kode'] . " tidak valid.";
                     continue; // Jika ada kesalahan di baris tertentu, lewati baris tersebut
                 }
 
-                // Simpan atau perbarui stok barang berdasarkan 'Kode' produk yang unik
-                $p = StokBarang::Create(
-                    [
-                        'kode_produk' => $row['Kode'], // Berdasarkan 'kode_produk' produk yang unik
-                        'id_stok_opname' => $id_stok_opname,
-                        'nama' => $row['Nama'],
-                        'kuantitas' => $row['Kuantitas']
-                    ]
-                );
+                // Cek apakah produk dengan kode yang sama sudah ada
+                $existingProduct = StokBarang::where('kode_produk', $row['Kode'])->first();
+
+                if ($existingProduct) {
+                    // Jika produk sudah ada, tambahkan pesan dan lanjutkan ke baris berikutnya
+                    $responseMessages[] = "Kode produk " . $row['Kode'] . " sudah ada.";
+                    continue;
+                }
+
+                // Simpan stok barang baru
+                StokBarang::create([
+                    'kode_produk' => $row['Kode'], // Berdasarkan 'kode_produk' produk yang unik
+                    'id_stok_opname' => $id_stok_opname,
+                    'nama' => $row['Nama'],
+                    'kuantitas' => $row['Kuantitas']
+                ]);
+
+                $responseMessages[] = "Kode produk " . $row['Kode'] . " berhasil ditambahkan.";
             }
 
-            return response()->json(['message' => 'Data stok berhasil diimpor!'], 200);
+            // Kembalikan semua pesan sebagai respons
+            return response()->json(['message' => 'Proses impor selesai.', 'details' => $responseMessages], 200);
         } catch (\Exception $e) {
-
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
 
-    public function getStokBarangs(Request $request)
+ 
+function getStokBarangs(Request $request)
     {
        
         if ($request->ajax()) {

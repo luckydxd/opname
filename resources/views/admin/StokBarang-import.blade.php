@@ -15,6 +15,7 @@
                 <div class="row my-3">
                     <div class="col-6">
                         <form id="uploadForm" enctype="multipart/form-data" onsubmit="handleFile(event)">
+                            @csrf
                             <div class="custom-file-container" data-upload-id="mySecondImage">
                                 <label><a href="javascript:void(0)" class="custom-file-container__image-clear"
                                         title="Clear Image"></a></label>
