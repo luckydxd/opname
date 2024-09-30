@@ -29,6 +29,7 @@ class DashboardController extends Controller
 
     public function create()
     {
+        $user = auth()->user();
         $gudangs = Gudang::all();
 
         $currentYear = date('y');
@@ -39,7 +40,7 @@ class DashboardController extends Controller
         // Auto Generate nomor dokumen dengan format SOP/{Bulan}/{Urutan}
         $nomorDokumen = 'SOP/' . $currentYear .'/'. $currentMonth . '/' . $nextOrder;
     
-        return view('user.addopname', compact('gudangs','nomorDokumen'));
+        return view('user.addopname', compact('gudangs','nomorDokumen','user'));
     }
 
     public function store(Request $request)

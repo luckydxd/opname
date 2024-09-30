@@ -15,8 +15,9 @@ class ScanController extends Controller
 {
     public function index()
     {
-        
-        return view('user.scan');
+        $user = auth()->user();
+
+        return view('user.scan' ,compact('user'));
     }
 
     public function datatable($id)
@@ -36,10 +37,11 @@ class ScanController extends Controller
 
     public function create()
     {
+        $user = auth()->user();
         $produks = Produk::all();
         $fisik_alls = DetailStokOpname::where('fisik_all');
 
-        return view('user.scan',compact('produks','fisik_alls'));
+        return view('user.scan',compact('produks','fisik_alls','user'));
 
     }
 
@@ -82,15 +84,17 @@ class ScanController extends Controller
 
 public function scan($id)
 {
+    $user = auth()->user();
     $stokOpname = StokOpname::findOrFail($id);
     $produks = Produk::all();
-    return view('user.scan', compact('stokOpname','produks'));
+    return view('user.scan', compact('stokOpname','produks','user'));
 }
 
 public function edit($id)
 {
     
     $DetailStokOpname = DetailStokOpname::findOrFail($id);
+    $user = auth()->user();
 
     // Join with 'produks' to get product details like kode and nama
     $item = DetailStokOpname::select([
@@ -104,7 +108,7 @@ public function edit($id)
     ->where('detail_stok_opnames.id', $id) // Use the specific record's ID here
     ->first(); 
 
-    return view('user.editqty', compact('DetailStokOpname', 'item')); // Pass both $DetailStokOpname and $item
+    return view('user.editqty', compact('DetailStokOpname', 'item','user')); // Pass both $DetailStokOpname and $item
 
 }
 
