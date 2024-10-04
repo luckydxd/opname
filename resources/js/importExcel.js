@@ -1,87 +1,83 @@
 import axios from 'axios';
 import * as XLSX from 'xlsx'; // Mengimpor XLSX untuk mengolah file Excel
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadForm = document.getElementById('uploadForm');
-            const fileInput = document.getElementById('customFile');
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadForm = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('customFile');
+    const fileLabel = document.querySelector('.custom-file-label'); // Elemen untuk menampilkan nama file
 
-            // Event untuk menampilkan nama file yang diunggah
-            fileInput.addEventListener('change', function(event) {
-                const fileName = event.target.files[0].name; // Mengambil nama file
-                const nextSibling = event.target.nextElementSibling;
-                nextSibling.innerText = fileName; // Mengubah teks pada label
-            });
+    // Event untuk menampilkan nama file yang dipilih
+    fileInput.addEventListener('change', function (event) {
+        const fileName = event.target.files[0].name; // Mengambil nama file
+        fileLabel.textContent = fileName; // Menampilkan nama file
+    });
 
-            // Event untuk submit form
-            uploadForm.addEventListener('submit', handleFile);
-        });
+    // Event untuk menangani submit form
+    uploadForm.addEventListener('submit', handleFile);
+});
 
-        function handleFile(event) {
-            event.preventDefault(); // Mencegah reload halaman saat submit form
+function handleFile(event) {
+    event.preventDefault(); // Mencegah reload halaman saat submit form
 
-            const fileInput = document.getElementById('customFile');
-            const file = fileInput.files[0];
-            const reader = new FileReader();
+    const fileInput = document.getElementById('customFile');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
 
-            if (!file) return alert("Silakan pilih file Excel");
+    if (!file) return alert("Silakan pilih file Excel");
 
-            reader.onload = function(e) {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, {
-                    type: 'array'
-                });
+    // Membaca file Excel
+    reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
 
-                // Ambil sheet pertama
-                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        // Ambil sheet pertama dari file Excel
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
 
-                // Konversi sheet ke JSON
-                const jsonData = XLSX.utils.sheet_to_json(firstSheet, {
-                    header: 1
-                });
+        // Konversi sheet ke JSON
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-                // Format data menjadi array objek dengan Kode dan Nama
-                const formattedData = jsonData.slice(1).map(row => ({
-                    'Kode': row[0], // Asumsikan kolom pertama adalah Kode
-                    'Nama': row[1], // Asumsikan kolom kedua adalah Nama
-                    'Kuantitas': row[2] // Tambahkan kolom ketiga jika ada Kuantitas
-                }));
-
-                // Kirim data JSON ke backend
-                axios.post('/admin/stok_barang/import-frontend', {
-                        data: formattedData,
-                        id_stok_opname: document.querySelector('input[name="id_stok_opname"]').value
-                    })
-                    .then(response => {
-                        const id = document.querySelector('input[name="id_stok_opname"]').value;
-
-                        // Tampilkan pesan sukses
-                        alert(response.data.message + (response.data.duplicates ? '\n' + response.data.duplicates
-                            .join('\n') : ''));
-
-                        // Redirect halaman setelah impor berhasil
-                        window.location.replace(`/admin/stok-barang/import/${id}`);
-                    })
-                    .catch(error => {
-                        // Cek apakah error berasal dari backend
-                        if (error.response) {
-                            // Jika ada pesan error spesifik dari backend
-                            if (error.response.status === 422) {
-                                // Jika validasi gagal (HTTP 422)
-                                alert("Validasi gagal: " + error.response.data.errors);
-                            } else if (error.response.status === 409) {
-                                // Jika ada kode produk yang sudah ada (HTTP 409)
-                                alert("Kode produk sudah ada di database.");
-                            } else {
-                                // Kesalahan lain dari server (HTTP 500 atau lainnya)
-                                alert("Terjadi kesalahan di server: " + error.response.data.message);
-                            }
-                        } else {
-                            // Jika kesalahan berasal dari jaringan atau hal lain
-                            console.error(error);
-                            alert('Terjadi kesalahan saat mengimpor data.');
-                        }
-                    });
-            };
-
-            reader.readAsArrayBuffer(file);
+        // Validasi apakah ada data yang diambil dari file Excel
+        if (jsonData.length === 0) {
+            return alert('File Excel kosong atau tidak dapat dibaca.');
         }
+
+        // Ambil ID stok opname dari input
+        const idStokOpname = document.querySelector('input[name="id_stok_opname"]').value;
+
+        if (!idStokOpname) {
+            return alert('ID stok opname diperlukan.');
+        }
+
+        // Kirim data JSON ke backend
+        axios.post('/admin/stok_barang/import-frontend', {
+            data: jsonData,
+            id_stok_opname: idStokOpname
+        })
+        .then(response => {
+            const id = idStokOpname; // Menggunakan ID stok opname
+            if (response.data.details && response.data.details.length > 0) {
+                const detailMessages = response.data.details.join('\n'); // Menggabungkan detail pesan menjadi string
+                alert(detailMessages); // Tampilkan hanya detailMessages jika ada data
+            } else {
+                alert(response.data.message); // Tampilkan hanya pesan jika detailMessages kosong
+            }
+        
+            // Redirect halaman setelah impor
+            window.location.replace(`/admin/stok-barang/import/${id}`);
+        })
+        .catch(error => {
+            // Penanganan kesalahan
+            if (error.response) {
+                // Kesalahan dari server (misalnya, validasi gagal)
+                alert(`Error: ${error.response.data.message}`);
+            } else {
+                // Kesalahan lainnya (jaringan, dll.)
+                console.error(error);
+                alert('Terjadi kesalahan saat mengimpor dat.');
+            }
+        });
+    };
+
+    reader.readAsArrayBuffer(file); // Membaca file sebagai ArrayBuffer untuk diproses
+}

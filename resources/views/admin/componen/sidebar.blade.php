@@ -7,7 +7,7 @@
          <ul class="navbar-nav theme-brand flex-row  text-center">
 
              <li class="nav-item theme-text">
-                 <a href="index.html" class="nav-link"> OPNAME </a>
+                 <a href="{{ Route('dashboard_admin') }}" class="nav-link"> OPNAME </a>
              </li>
              <li class="nav-item toggle-sidebar">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

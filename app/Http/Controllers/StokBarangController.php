@@ -34,15 +34,15 @@ class StokBarangController extends Controller
             'data' => 'required|array',
             'id_stok_opname' => 'required|exists:stok_opnames,id'
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['message' => 'Data tidak valid!', 'errors' => $validator->errors()], 422);
         }
-
+    
         $data = $request->input('data');
         $id_stok_opname = $request->input('id_stok_opname');
         $responseMessages = []; // Menyimpan pesan untuk setiap baris
-
+    
         try {
             // Iterasi data dan simpan ke dalam database
             foreach ($data as $row) {
@@ -52,21 +52,26 @@ class StokBarangController extends Controller
                     'Nama' => 'required',
                     'Kuantitas' => 'required'
                 ]);
-
+    
                 if ($rowValidator->fails()) {
                     $responseMessages[] = "Baris dengan Kode " . $row['Kode'] . " tidak valid.";
                     continue; // Jika ada kesalahan di baris tertentu, lewati baris tersebut
                 }
-
+    
                 // Cek apakah produk dengan kode yang sama sudah ada
-                $existingProduct = StokBarang::where('kode_produk', $row['Kode'])->first();
-
+                $existingProduct = StokBarang::where([
+                    ['id_stok_opname', '=', $id_stok_opname],
+                    ['kode_produk', '=', $row['Kode']]
+                ])->first();
+                
+    
                 if ($existingProduct) {
                     // Jika produk sudah ada, tambahkan pesan dan lanjutkan ke baris berikutnya
                     $responseMessages[] = "Kode produk " . $row['Kode'] . " sudah ada.";
+                    \Log::info("Kode produk sudah ada: " . $row['Kode']); // Tambahkan log untuk debugging
                     continue;
                 }
-
+    
                 // Simpan stok barang baru
                 StokBarang::create([
                     'kode_produk' => $row['Kode'], // Berdasarkan 'kode_produk' produk yang unik
@@ -74,16 +79,17 @@ class StokBarangController extends Controller
                     'nama' => $row['Nama'],
                     'kuantitas' => $row['Kuantitas']
                 ]);
-
+    
                 $responseMessages[] = "Kode produk " . $row['Kode'] . " berhasil ditambahkan.";
             }
-
+    
             // Kembalikan semua pesan sebagai respons
             return response()->json(['message' => 'Proses impor selesai.', 'details' => $responseMessages], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
+    
 
  
 function getStokBarangs(Request $request)
